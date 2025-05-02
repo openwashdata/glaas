@@ -1,0 +1,74 @@
+---
+title: "fetch_glaas_data"
+format: html
+---
+
+```{r}
+# Install the httr package if it's not already installed
+if(!requireNamespace("httr", quietly = TRUE)){
+  install.packages("httr")
+}
+library(httr)
+
+fetch_csv <- function(api_url, out_file) {
+  #' Fetch data from a URL, expecting CSV, and save to a local file.
+  #'
+  #' @param api_url (character) The URL of the API endpoint.
+  #' @param out_file (character) The path to the local file for saving.
+  #' @return (logical) TRUE if successful, FALSE otherwise (invisibly).
+  #' @export
+  #' @importFrom httr GET stop_for_status headers content
+  #' @importFrom utils write.csv
+  #' @examples
+  #' \dontrun{
+  #'   # Replace with a valid CSV API URL and desired output file path
+  #'   # api_url <- "https://example.com/data.csv"
+  #'   # output_file <- "downloaded_data.csv"
+  #'   # success <- fetch_csv_r(api_url, output_file)
+  #'   # if (success) message("CSV data fetched and saved successfully!")
+  #'   # else message("Failed to fetch or save CSV data.")
+  #' }
+  tryCatch({
+    response <- GET(api_url)
+    stop_for_status(response)
+
+    content_type <- headers(response)[['Content-Type']]
+
+    if (!is.null(content_type) && grepl('text/csv', content_type, ignore.case = TRUE)) {
+      data <- content(response, as = "text", encoding = "UTF-8")
+      # Use read.csv for robust CSV parsing and handling
+      df <- read.csv(text = data, stringsAsFactors = FALSE)
+      write.csv(df, file = out_file, row.names = FALSE)
+      file_size_mb <- file.info(out_file)$size / 1e6
+      message(sprintf("Data saved to '%s'", out_file))
+      message(sprintf("File size: %.2f MB", file_size_mb))
+      invisible(TRUE)
+    } else if (!is.null(content_type) && grepl('application/json', content_type, ignore.case = TRUE)) {
+      message("Warning: Received a JSON response instead of CSV.")
+      json_data <- content(response, as = "text", encoding = "UTF-8")
+      # Consider using jsonlite::fromJSON for parsing JSON
+      message(json_data)
+      invisible(FALSE)
+    } else {
+      warning(sprintf("Received unexpected Content-Type: %s", content_type %||% "NULL"))
+      message("Response content:")
+      message(content(response, as = "text", encoding = "UTF-8"))
+      invisible(FALSE)
+    }
+  }, error = function(e) {  # Changed this line
+    stop(sprintf("Error fetching data from %s: %s", api_url, e$message))
+  })
+}
+```
+
+```{r}
+# Fetch data -------------------------------------------------------------------
+
+# Define the API URL and output file
+api_url <- "https://xmart-api-public.who.int/WASHMART/GLAAS_EN_2?$format=csv"
+output_file <- "glaas.csv"
+
+# Run the fetch_csv_r function
+fetch_csv(api_url, output_file)
+```
+
