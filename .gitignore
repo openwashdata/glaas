@@ -1,3 +1,5 @@
 .Rproj.user
 _*
 .DS*
+.Rhistory
+*.csv

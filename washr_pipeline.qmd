@@ -1,7 +1,12 @@
 ---
-title: "fetch_glaas_data"
+title: "washr_pipeline"
 format: html
 ---
+
+```{r}
+library(washr)
+setup_rawdata()
+```
 
 ```{r}
 # Install the httr package if it's not already installed
@@ -62,11 +67,9 @@ fetch_csv <- function(api_url, out_file) {
 ```
 
 ```{r}
-# Fetch data -------------------------------------------------------------------
-
 # Define the API URL and output file
 api_url <- "https://xmart-api-public.who.int/WASHMART/GLAAS_EN_2?$format=csv"
-output_file <- "glaas.csv"
+output_file <- "data-raw/glaas.csv"
 
 # Run the fetch_csv_r function
 fetch_csv(api_url, output_file)
