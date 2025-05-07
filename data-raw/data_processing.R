@@ -38,11 +38,6 @@ data_out_fine <- data_out_medium |>
 
 data_out <- data_out_fine
 
-unique_values_list <- data_out |> 
-    lapply(unique)
-options(max.print=70)
-unique_values_list
-
 excluded_cols <- setdiff(names(data_in), names(data_out))
 cat("Excluded columns:\n", paste(excluded_cols, collapse = ", "))
 

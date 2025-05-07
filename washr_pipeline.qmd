@@ -14,10 +14,10 @@ source(here::here("data-raw", "odata_utils.R"))
 
 ```{r}
 base_url <- "https://xmart-api-public.who.int/WASHMART/GLAAS_EN_2?$format=csv"
-out_file <- here::here("data-raw", "glaas.csv")
+out_file <- here::here("data-raw", "glaas_2021.csv")
 
 # Run the fetch_csv_r function
-# fetch_odata(base_url, filter = list(Time = c(2021)), top = 20, skip=80, out_file = output_file)
+fetch_odata(base_url, filter = list(Time = c(2021), Ind = c("ABSORB_DOM")), top=20, skip=20, out_file = out_file)
 fetch_odata(base_url, out_file = out_file)
 ```
 

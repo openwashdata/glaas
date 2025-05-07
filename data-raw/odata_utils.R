@@ -3,10 +3,12 @@ if(!requireNamespace("glue", quietly = TRUE)){install.packages("glue")}
 library(httr)
 library(glue)
 
-build_odata_url <- function(base_url, filter = NULL, skip = NULL, top = NULL) {
-  #' Build an OData URL with specified filtering, skip, and top options.
+build_odata_url <- function(base_url, select = NULL, filter = NULL, skip = NULL, top = NULL) {
+  #' Build an OData URL with specified select, filtering, skip, and top options.
   #'
   #' @param base_url (character) The base URL of the OData API endpoint.
+  #' @param select (character) A character vector of column names to select.
+  #'                 e.g., c('COL1', 'COL2', 'COL3').
   #' @param filter (list) A named list of filter conditions. The name of the list element is the field,
   #'                 and the value is a character vector of values for 'in' filtering.
   #'                 e.g., list(CODE_ISO_3 = c('ZWE', 'VIR', 'LBN'), DataYear = 2022).
@@ -20,6 +22,10 @@ build_odata_url <- function(base_url, filter = NULL, skip = NULL, top = NULL) {
   # Ensure $format=csv is present
   query_list[['$format']] <- 'csv'
 
+  if (!is.null(select)) {
+    query_list[['$select']] <- paste(select, collapse = ",")
+  }
+
   if (!is.null(filter)) {
     filter_expressions <- character(0)
     for (field in names(filter)) {
@@ -29,7 +35,7 @@ build_odata_url <- function(base_url, filter = NULL, skip = NULL, top = NULL) {
       filter_expressions <- c(filter_expressions, filter_expression)
     }
     if (length(filter_expressions) > 0) {
-      query_list[['$filter']] <- filter_expressions
+      query_list[['$filter']] <- paste(filter_expressions, collapse = " and ")
     }
   }
 
