@@ -5,16 +5,15 @@ import re
 import pandas as pd
 from python.blablador import Blablador
 from python import config
-# from palmerpenguins import load_penguins
 
-def get_limited_unique_values(file_path, limit=None, dtype=None):
+def get_limited_unique_values(file_path, max_unique_values=None, dtype=None):
     """
     Reads a CSV file and returns a dictionary of unique values from each column,
     optionally limited to a specified number.
 
     Args:
         file_path (str): The path to the CSV file.
-        limit (int, optional): The maximum number of unique values to return
+        max_unique_values (int, optional): The maximum number of unique values to return
                                 for each column. Defaults to None (all unique values).
         dtype (dict, optional): Pandas dtype.
 
@@ -34,8 +33,8 @@ def get_limited_unique_values(file_path, limit=None, dtype=None):
     unique_dict = {}
     for col in data_in.columns:
         unique_values = data_in[col].unique().tolist()
-        if limit is not None and len(unique_values) > limit:
-            unique_dict[col] = unique_values[:limit]
+        if max_unique_values is not None and len(unique_values) > max_unique_values:
+            unique_dict[col] = unique_values[:max_unique_values]
         else:
             unique_dict[col] = unique_values
 
@@ -93,20 +92,15 @@ def write_descriptions_to_csv(json_data, csv_file_path="dictionary.csv"):
 
 file_path = os.getcwd()+"/inst/extdata/glaas.csv" 
 
-# Generate example levels
-#penguins = load_penguins()
-#file_path = os.getcwd()+"/python/penguins.csv"
-#penguins.to_csv(file_path)
-
-limit=7
-limited_unique_values = get_limited_unique_values(file_path, limit=limit)
+max_unique_values=7
+limited_unique_values = get_limited_unique_values(file_path, max_unique_values=max_unique_values)
 limited_unique_values
 
 # Config Blablador
 blablador = Blablador(config.API_KEY, model=1, temperature=0, top_p=0.5, max_tokens=999)
 
 context = """
-You will receive a Python dictionary where the keys are the names of columns from a CSV file, and the values are lists containing up to %d unique example values from those columns.
+You will receive a Python dictionary where the keys are the names of columns from a CSV file, and the values are lists containing up to `max_unique_values`=%d unique example values from those columns.
 
 Your primary goal is to generate clear, concise, and informative data dictionary entries for each column. These descriptions will be used to help individuals unfamiliar with the dataset understand the meaning and type of information each column contains for documentation purposes. Aim for descriptions that are no more than two sentences long.
 
@@ -118,7 +112,7 @@ Consider the following steps for each column:
 4.  **Determine the data type:** Clearly identify the likely data type of the column (e.g., categorical, continuous numerical, discrete numerical, text, boolean, date).
 5.  **Write a concise description:** Combine your inferences into a brief description (1-2 sentences) that explains the meaning of the column and its data type. Use clear and accessible language, avoiding overly technical jargon unless essential.
 
-For example, if you receive the following dictionary (with a limit of 7):
+For example, if you receive the following dictionary (with a `max_unique_values`=7):
 
 {'species': ['Adelie', 'Gentoo', 'Chinstrap'],
  'island': ['Torgersen', 'Biscoe', 'Dream'],
@@ -146,8 +140,9 @@ The dictionary you will process is:
 
 %s
 
-Your response must be in JSON format, containing only the generated description for each column.
-""" % (limit, limited_unique_values)
+Your response must be in JSON format, containing a dictionary where each key is a column name from the input dictionary, and the value is the generated description for that column. 
+Output *only* this JSON dictionary.
+""" % (max_unique_values, limited_unique_values)
 
 response = blablador.completion(context)
 
