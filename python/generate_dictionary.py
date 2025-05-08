@@ -6,13 +6,13 @@ import pandas as pd
 from python.blablador import Blablador
 from python import config
 
-def get_limited_unique_values(file_path, max_unique_values=None, dtype=None):
+def get_limited_unique_values(in_file, max_unique_values=None, dtype=None):
     """
     Reads a CSV file and returns a dictionary of unique values from each column,
     optionally limited to a specified number.
 
     Args:
-        file_path (str): The path to the CSV file.
+        in_file (str): The path to the CSV file.
         max_unique_values (int, optional): The maximum number of unique values to return
                                 for each column. Defaults to None (all unique values).
         dtype (dict, optional): Pandas dtype.
@@ -22,12 +22,12 @@ def get_limited_unique_values(file_path, max_unique_values=None, dtype=None):
               of unique values. Returns None if the file cannot be read.
     """
     try:
-        data_in = pd.read_csv(file_path, dtype=dtype)
+        data_in = pd.read_csv(in_file, dtype=dtype)
     except FileNotFoundError:
-        print(f"Error: File not found at {file_path}")
+        print(f"Error: File not found at {in_file}")
         return None
     except Exception as e:
-        print(f"Error reading file {file_path}: {e}")
+        print(f"Error reading file {in_file}: {e}")
         return None
 
     unique_dict = {}
@@ -40,7 +40,7 @@ def get_limited_unique_values(file_path, max_unique_values=None, dtype=None):
 
     return unique_dict
 
-def extract_json_from_markdown(markdown_string):
+def markdown_code_block_to_json(markdown_string):
     """
     Extracts JSON content from a Markdown string, handling code blocks.
 
@@ -65,35 +65,35 @@ def extract_json_from_markdown(markdown_string):
             print(f"Error decoding JSON: {e}")
             return None
 
-def write_descriptions_to_csv(json_data, csv_file_path="dictionary.csv"):
+def write_descriptions_to_csv(json_data, out_file="dictionary.csv"):
     """
     Writes variable descriptions from a JSON dictionary to a CSV file.
 
     Args:
         json_data (dict): A dictionary where keys are variable names and values are their descriptions.
-        csv_file_path (str, optional): The path to the CSV file. Defaults to "dictionary.csv".
+        out_file (str, optional): The path to the CSV file. Defaults to "dictionary.csv".
     """
     try:
         # Check if the file exists.  If it does, we'll append to it.
-        file_exists = os.path.exists(csv_file_path)
+        file_exists = os.path.exists(out_file)
 
         # Create a Pandas DataFrame from the JSON data
         data = {'variable_name': list(json_data.keys()), 'description': list(json_data.values())}
         df = pd.DataFrame(data)
 
         # Write the dataframe to CSV.  Include the header only if the file didn't exist.
-        df.to_csv(csv_file_path, mode='a', header=not file_exists, index=False, encoding='utf-8')
+        df.to_csv(out_file, mode='a', header=not file_exists, index=False, encoding='utf-8')
 
-        print(f"Descriptions successfully written to {csv_file_path}")
+        print(f"Descriptions successfully written to {out_file}")
 
     except Exception as e:
         print(f"Error writing to CSV file: {e}")
 
 
-file_path = os.getcwd()+"/inst/extdata/glaas.csv" 
+in_file = os.getcwd()+"/inst/extdata/glaas.csv" 
 
 max_unique_values=7
-limited_unique_values = get_limited_unique_values(file_path, max_unique_values=max_unique_values)
+limited_unique_values = get_limited_unique_values(in_file, max_unique_values=max_unique_values)
 limited_unique_values
 
 # Config Blablador
@@ -146,9 +146,9 @@ Output *only* this JSON dictionary.
 
 response = blablador.completion(context)
 
-descriptions = extract_json_from_markdown(response)
+descriptions = markdown_code_block_to_json(response)
 
 if descriptions:
-    write_descriptions_to_csv(descriptions, csv_file_path= os.getcwd()+"/python/dictionary.csv")
+    write_descriptions_to_csv(descriptions, out_file= os.getcwd()+"/python/dictionary.csv")
 else:
     print("No valid JSON data to write to CSV.")
