@@ -1,7 +1,11 @@
 import os
+import json
 
+import re
 import pandas as pd
-from blablador_python_bindings import blablador, config
+from python.blablador import Blablador
+from python import config
+# from palmerpenguins import load_penguins
 
 def get_limited_unique_values(file_path, limit=None, dtype=None):
     """
@@ -37,15 +41,119 @@ def get_limited_unique_values(file_path, limit=None, dtype=None):
 
     return unique_dict
 
+def extract_json_from_markdown(markdown_string):
+    """
+    Extracts JSON content from a Markdown string, handling code blocks.
+
+    Args:
+        markdown_string (str): The Markdown string potentially containing JSON.
+
+    Returns:
+        dict or None: A Python dictionary if valid JSON is found, otherwise None.
+    """
+    # Use a regular expression to find code blocks with "json" or no language specified
+    json_match = re.search(r"```(?:json)?\n(.*?)\n```", markdown_string, re.DOTALL)
+    if json_match:
+        try:
+            return json.loads(json_match.group(1).strip())
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            return None
+    else:
+        try:
+            return json.loads(markdown_string.strip())
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            return None
+
+def write_descriptions_to_csv(json_data, csv_file_path="dictionary.csv"):
+    """
+    Writes variable descriptions from a JSON dictionary to a CSV file.
+
+    Args:
+        json_data (dict): A dictionary where keys are variable names and values are their descriptions.
+        csv_file_path (str, optional): The path to the CSV file. Defaults to "dictionary.csv".
+    """
+    try:
+        # Check if the file exists.  If it does, we'll append to it.
+        file_exists = os.path.exists(csv_file_path)
+
+        # Create a Pandas DataFrame from the JSON data
+        data = {'variable_name': list(json_data.keys()), 'description': list(json_data.values())}
+        df = pd.DataFrame(data)
+
+        # Write the dataframe to CSV.  Include the header only if the file didn't exist.
+        df.to_csv(csv_file_path, mode='a', header=not file_exists, index=False, encoding='utf-8')
+
+        print(f"Descriptions successfully written to {csv_file_path}")
+
+    except Exception as e:
+        print(f"Error writing to CSV file: {e}")
+
+
 file_path = os.getcwd()+"/inst/extdata/glaas.csv" 
-limited_unique_values = get_limited_unique_values(file_path, limit=7)
-print(limited_unique_values)
 
-# Retrieve available models
-models = blablador.Models(api_key=config.API_KEY).get_model_ids()
-print(models)
+# Generate example levels
+#penguins = load_penguins()
+#file_path = os.getcwd()+"/python/penguins.csv"
+#penguins.to_csv(file_path)
 
-# Generate completions
-completion = blablador.Completions(api_key=config.API_KEY, model=models[3])
-response = completion.get_completion("The best cuisine in the world is")
-print(response)
+limit=7
+limited_unique_values = get_limited_unique_values(file_path, limit=limit)
+limited_unique_values
+
+# Config Blablador
+blablador = Blablador(config.API_KEY, model=1, temperature=0, top_p=0.5, max_tokens=999)
+
+context = """
+You will receive a Python dictionary where the keys are the names of columns from a CSV file, and the values are lists containing up to %d unique example values from those columns.
+
+Your primary goal is to generate clear, concise, and informative data dictionary entries for each column. These descriptions will be used to help individuals unfamiliar with the dataset understand the meaning and type of information each column contains for documentation purposes. Aim for descriptions that are no more than two sentences long.
+
+Consider the following steps for each column:
+
+1.  **Analyze the column name:** What does the name itself suggest about the data it might contain?
+2.  **Examine the provided example values:** Look for patterns, units, categories, or ranges that can help you understand the nature of the data.
+3.  **Infer the likely meaning and context:** Based on the column name and example values, what real-world concept or measurement does this column likely represent? Try to infer the broader domain or field of study this data might belong to (e.g., environmental science, social surveys, medical records).
+4.  **Determine the data type:** Clearly identify the likely data type of the column (e.g., categorical, continuous numerical, discrete numerical, text, boolean, date).
+5.  **Write a concise description:** Combine your inferences into a brief description (1-2 sentences) that explains the meaning of the column and its data type. Use clear and accessible language, avoiding overly technical jargon unless essential.
+
+For example, if you receive the following dictionary (with a limit of 7):
+
+{'species': ['Adelie', 'Gentoo', 'Chinstrap'],
+ 'island': ['Torgersen', 'Biscoe', 'Dream'],
+ 'bill_length_mm': [39.1, 39.5, 40.3, nan, 36.7, 39.3, 38.9],
+ 'bill_depth_mm': [18.7, 17.4, 18.0, nan, 19.3, 20.6, 17.8],
+ 'flipper_length_mm': [181.0, 186.0, 195.0, nan, 193.0, 190.0, 180.0],
+ 'body_mass_g': [3750.0, 3800.0, 3250.0, nan, 3450.0, 3650.0, 3625.0],
+ 'sex': ['male', 'female', nan],
+ 'year': [2007, 2008, 2009]}
+
+You should aim to provide a JSON that looks like this:
+
+{
+  "species": "The species of penguin observed, with categories including Adelie, Chinstrap, and Gentoo.",
+  "island": "The specific island where the penguin was observed, such as Torgersen, Biscoe, or Dream.",
+  "bill_length_mm": "The length of the penguin's bill (beak) measured in millimeters. This is a continuous numerical measurement.",
+  "bill_depth_mm": "The depth of the penguin's bill measured in millimeters. This is a continuous numerical measurement.",
+  "flipper_length_mm": "The length of the penguin's flipper measured in millimeters. This is a discrete numerical measurement.",
+  "body_mass_g": "The body mass of the penguin recorded in grams. This is a discrete numerical measurement.",
+  "sex": "The biological sex of the penguin, categorized as either male or female.",
+  "year": "The year in which the penguin observation was recorded. This is a discrete numerical value representing the year of data collection."
+}
+
+The dictionary you will process is:
+
+%s
+
+Your response must be in JSON format, containing only the generated description for each column.
+""" % (limit, limited_unique_values)
+
+response = blablador.completion(context)
+
+descriptions = extract_json_from_markdown(response)
+
+if descriptions:
+    write_descriptions_to_csv(descriptions, csv_file_path= os.getcwd()+"/python/dictionary.csv")
+else:
+    print("No valid JSON data to write to CSV.")
