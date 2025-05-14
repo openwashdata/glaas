@@ -2,7 +2,7 @@
 _*
 .DS*
 .Rhistory
-*.csv
+data-raw/*.csv
 
 /.quarto/
 config*
