@@ -1,14 +1,19 @@
 Package: glaas
-Title: What the Package Does (One Line, Title Case)
+Title: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Nicolo", "Massari", , "nmassari@ethz.ch", role = c("aut", "cre"),
+           comment = c(ORCID = "0009-0006-8421-930X"))
+Description: GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.
+License: CC BY 4.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
     R (>= 3.5)
 LazyData: true
+Language: en-GB
+Config/Needs/website: rmarkdown
+Date: 2025-05-14
+URL: https://github.com/openwashdata/glaas
+BugReports: https://github.com/openwashdata/glaas/issues

@@ -21,6 +21,7 @@ fetch_odata(base_url, out_file = output_file)
 ```{r}
 # USER SETUP
 root_name <- basename(here::here())
+github_user <- "openwashdata"
 
 # CONSTANTS
 data_name <- paste0(root_name, ".csv")
@@ -31,7 +32,7 @@ data_path <- here::here("inst", "extdata", data_name)
 ```{r}
 devtools::install_github("openwashdata/washr")
 library(washr)
-#setup_rawdata()
+setup_rawdata()
 ```
 ```{r}
 # Description ------------------------------------------------------------------
@@ -69,15 +70,15 @@ data_out_fine <- data_out_medium |>
     select(-(Ind:IndText)) |> 
     select(-(starts_with("Dim") & ends_with("TypeText")))
 
-data_out <- data_out_fine
+glaas <- data_out_fine
 
-excluded_cols <- setdiff(names(data_in), names(data_out))
+excluded_cols <- setdiff(names(data_in), names(glaas))
 cat("Excluded columns:\n", paste(excluded_cols, collapse = ", "))
 
 # Export Data ------------------------------------------------------------------
-usethis::use_data(data_out, overwrite = TRUE)
+usethis::use_data(glaas, overwrite = TRUE)
 fs::dir_create(here::here("inst", "extdata"))
-readr::write_csv(data_out, data_path)
+readr::write_csv(glaas, data_path)
 ```
 
 ```{r}
@@ -287,8 +288,8 @@ create_describe_block <- function(dict){
 ```
 
 ```{r}
-title = "The swissopenuniversities ORD projects metadata package"
-description = "Metadata relative to each project funded by the Open Research Data (ORD) initiative by swissuniversities."
+title = "UN-Water Global Analysis and Assessment of Sanitation and Drinking-water"
+description = "GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups."
 setup_roxygen(title = title, description = description)
 ```
 
@@ -379,7 +380,7 @@ update_description <- function(github_user, title, description, file = ".", lang
 ```
 
 ```{r}
-update_description(github_user = "Global-Health-Engineering", title=title, description=description)
+update_description(github_user = github_user, title=title, description=description)
 ```
 
 ```{r}
@@ -389,7 +390,6 @@ devtools::install()
 ```
 
 ```{r}
-# ONLY AVAILABLE IN washr/dev-metadata branch
 add_metadata()
 update_metadata()
 add_creator(name=paste(aut$given, aut$last, sep=" "), 
