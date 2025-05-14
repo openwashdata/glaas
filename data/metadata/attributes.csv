@@ -1,0 +1,19 @@
+directory,file_name,variable_name,variable_type,description
+data/,glaas.rda,GrandParentText,character,"The high-level category or domain of the data, such as Finance, Governance, or Monitoring."
+data/,glaas.rda,ParentText,character,"The specific subcategory or topic within the high-level category, such as Domestic absorption or External funding absorption."
+data/,glaas.rda,IndText_HL,character,"The detailed description or indicator text for the high-level category, providing context or specific details about the data."
+data/,glaas.rda,LocText,character,"The location or country associated with the data, such as Brazil or Barbados."
+data/,glaas.rda,Time,numeric,The year in which the data was recorded or the time period of the data.
+data/,glaas.rda,IsComparable_2013,logical,A boolean value indicating whether the data is comparable to the data from 2013.
+data/,glaas.rda,IsComparable_2016,logical,A boolean value indicating whether the data is comparable to the data from 2016.
+data/,glaas.rda,IsComparable_2018,logical,A boolean value indicating whether the data is comparable to the data from 2018.
+data/,glaas.rda,IsComparable_2021,logical,A boolean value indicating whether the data is comparable to the data from 2021.
+data/,glaas.rda,IsComparable_2024,logical,A boolean value indicating whether the data is comparable to the data from 2024.
+data/,glaas.rda,Dim1ValText,character,"The first dimension value text, representing categories such as Drinking-water or Sanitation."
+data/,glaas.rda,Dim2ValText,character,"The second dimension value text, representing categories such as Urban or Rural."
+data/,glaas.rda,Dim3ValText,character,"The third dimension value text, representing categories such as National* or Address."
+data/,glaas.rda,Dim4ValText,character,"The fourth dimension value text, representing categories such as Behaviour change improvement initiatives or Standards or regulations."
+data/,glaas.rda,Dim5ValText,character,"The fifth dimension value text, representing categories such as Themes or Quality."
+data/,glaas.rda,Dim6ValText,logical,"The sixth dimension value text, representing categories such as Sufficiency or Treated."
+data/,glaas.rda,ValText,character,"The value text, providing specific details or descriptions about the data, such as Between 50 to 75% or No response."
+data/,glaas.rda,DataType,character,"The data type of the column, indicating whether the data is Text or Decimal."

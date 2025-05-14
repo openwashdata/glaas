@@ -401,7 +401,7 @@ devtools::check()
 devtools::install()
 ```
 
-Change tamplates, automatically run and compile.
+Change templates, automatically run and compile.
 
 ```{r}
 setup_readme()
