@@ -32,7 +32,7 @@ data_raw_path <- here::here("data-raw", data_name)
 dictionary_path <-  here::here("data-raw", "dictionary.csv")
 data_path <- here::here("inst", "extdata", data_name)
 
-license <- "CC BY 4.0"
+license <- "CC-BY-4.0"
 ```
 ```{r}
 devtools::install_github("openwashdata/washr")

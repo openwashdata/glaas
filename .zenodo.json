@@ -1,11 +1,35 @@
 {
   "creators": [
-    {
-      "orcid": "0009-0006-8421-930X",
-      "affiliation": "ETH Zurich",
-      "name": "Nicolo, Massari"
-    }
+      {
+          "orcid": "0000-0002-1825-0097",
+          "affiliation": "Feline reasearch institute",
+          "name": "Field, Gar"
+      },
+      {
+          "orcid": "0000-0002-1825-0097",
+          "affiliation": "Feline reasearch institute",
+          "name": "Cat, Felix"
+      }
   ],
-  "license": "CC BY 4.0",
-  "title": "UN-Water Global Analysis and Assessment of Sanitation and Drinking-water"
+
+  "license": "Apache-2.0",
+
+  "title": "Red-Dot: ML-powered laser vector detection",
+
+  "related_identifiers": [
+      {
+          "scheme": "doi",
+          "identifier": "10.1234/software.paper.5678",
+          "relation": "isDocumentedBy",
+          "resource_type": "publication-article"
+      }
+  ],
+
+  "keywords": ["Cats", "Laser", "Behavior"],
+
+  "communities": [
+      {"identifier": "software-cats"}
+  ],
+
+  "grants": [{"id":"777541"}]
 }
