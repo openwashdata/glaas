@@ -426,7 +426,7 @@ create_zenodo_json <- function(
   keywords = NULL,
   communities = NULL,
   grants = NULL,
-  filename = "zenodo.json"
+  filename = ".zenodo.json"
 ) {
   
   # Check if creators is a list, if not, convert it to a list
@@ -464,11 +464,11 @@ create_zenodo_json <- function(
   zenodo_json <- zenodo_json[sapply(zenodo_json, function(x) !is.null(x))]
   
   # Write the zenodo json object to a file
-  jsonlite::write_json(zenodo_json, filename, pretty = TRUE)
+  jsonlite::write_json(zenodo_json, filename, pretty = TRUE, auto_unbox = TRUE)
 }
 
 creators <- list(
-  list(orcid = aut1$ORCID, affiliation = aut1$affiliation, name = paste0(aut1$given, ", ", aut1$family))
+  list(orcid = aut1$ORCID[1], affiliation = aut1$affiliation, name = paste0(aut1$given, ", ", aut1$family))
 )
 
 #related_identifiers <- list(
