@@ -32,7 +32,7 @@ data_raw_path <- here::here("data-raw", data_name)
 dictionary_path <-  here::here("data-raw", "dictionary.csv")
 data_path <- here::here("inst", "extdata", data_name)
 
-license <- "CC-BY-4.0"
+license <- "cc-by-4.0"
 ```
 ```{r}
 devtools::install_github("openwashdata/washr")
@@ -471,26 +471,26 @@ creators <- list(
   list(orcid = aut1$ORCID[1], affiliation = aut1$affiliation, name = paste0(aut1$given, ", ", aut1$family))
 )
 
-#related_identifiers <- list(
-#  list(scheme = "doi", identifier = "10.1234/software.paper.5678", relation = "isDocumentedBy", resource_type = "publication-article")
-#)
+related_identifiers <- list(
+  list(scheme = "doi", identifier = "10.1234/software.paper.5678", relation = "isDocumentedBy", resource_type = "publication-article")
+)
 
-#communities <- list(
-#  list(identifier = "global-health-engineering")
-#)
+communities <- list(
+  list(identifier = "global-health-engineering")
+)
 # maybe?
 
-#grants <- list(
-#  list(id = "777541")
-#)
+grants <- list(
+  list(id = "777541")
+)
 
 create_zenodo_json(
-  creators = creators,
-  license = license,
-  title = title,
+  #creators = creators,
+  #license = license,
+  #title = title,
   #related_identifiers = related_identifiers,
   #keywords = c("Cats", "Laser", "Behavior"),
-  #communities = communities,
+  communities = communities,
   #grants = grants
 )
 ```
@@ -499,3 +499,6 @@ doi = "10.5281/zenodo.15423460"
 update_citation(doi)
 ```
 MUST CHANGE: delete current doi and replace
+```{r}
+devtools::build_site()
+```
