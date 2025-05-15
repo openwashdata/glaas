@@ -1,0 +1,13 @@
+
+bibentry(bibtype = "Misc",
+         key = "massari:2025",
+         title = "glaas: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water",
+         author = person(given = "Nicolo",
+                         family = "Massari",
+                         email = "nmassari@ethz.ch",
+                         comment = c(ORCID = "0009-0006-8421-930X")),
+         year = "2025",
+         doi = "10.5281/zenodo.15423460",
+         url = "https://github.com/openwashdata/glaas",
+         abstract = "GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.",
+         version = "0.0.0.9000")

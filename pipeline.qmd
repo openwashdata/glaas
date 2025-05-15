@@ -421,12 +421,7 @@ devtools::install()
 ```
 
 ```{r}
-doi = "10.5281/zenodo.15397968"
+doi = "10.5281/zenodo.15423460"
 update_citation(doi)
 ```
-
-```{r}
-pkgdown::build_site()
-```
-
 MUST CHANGE: delete current doi and replace

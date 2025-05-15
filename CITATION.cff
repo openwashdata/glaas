@@ -1,0 +1,31 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "glaas" in publications use:'
+type: software
+license: CC-BY-4.0
+title: 'glaas: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water'
+version: 0.0.0.9000
+doi: 10.5281/zenodo.15423460
+abstract: GLAAS provides policy- and decision-makers at all levels with reliable,
+  easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems,
+  including on governance, monitoring, human resources and finance. GLAAS monitors
+  elements of WASH systems that are required to sustain and extend WASH services and
+  systems to all, and especially to the most vulnerable population groups.
+authors:
+- family-names: Massari
+  given-names: Nicolo
+  email: nmassari@ethz.ch
+  orcid: https://orcid.org/0009-0006-8421-930X
+repository-code: https://github.com/openwashdata/glaas
+url: https://github.com/openwashdata/glaas
+date-released: '2025-05-14'
+contact:
+- family-names: Massari
+  given-names: Nicolo
+  email: nmassari@ethz.ch
+  orcid: https://orcid.org/0009-0006-8421-930X
+
