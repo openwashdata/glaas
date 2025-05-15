@@ -22,12 +22,17 @@ fetch_odata(base_url, out_file = output_file)
 # USER SETUP
 root_name <- basename(here::here())
 github_user <- "openwashdata"
+aut1 <- list(given = "Nicolo", family = "Massari", role = c("aut", "cre"), email = "nmassari@ethz.ch", ORCID = "0009-0006-8421-930X", affiliation="ETH Zurich")
+title = "UN-Water Global Analysis and Assessment of Sanitation and Drinking-water"
+description = "GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups."
 
 # CONSTANTS
 data_name <- paste0(root_name, ".csv")
 data_raw_path <- here::here("data-raw", data_name)
 dictionary_path <-  here::here("data-raw", "dictionary.csv")
 data_path <- here::here("inst", "extdata", data_name)
+
+license <- "CC BY 4.0"
 ```
 ```{r}
 devtools::install_github("openwashdata/washr")
@@ -288,8 +293,6 @@ create_describe_block <- function(dict){
 ```
 
 ```{r}
-title = "UN-Water Global Analysis and Assessment of Sanitation and Drinking-water"
-description = "GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups."
 setup_roxygen(title = title, description = description)
 ```
 
@@ -299,12 +302,6 @@ Add title and description to R/ethord.R
 devtools::document()
 devtools::check()
 devtools::install()
-```
-
-```{r}
-# Example authors
-aut1 <- list(given = "Nicolo", family = "Massari", role = c("aut", "cre"), email = "nmassari@ethz.ch", ORCID = "0009-0006-8421-930X", affiliation="ETH Zurich")
-aut2 <- list(given = "Jane", family = "Doe", role = "ctb", email = "jane.doe@example.com")
 ```
 
 ```{r}
@@ -420,6 +417,83 @@ devtools::check()
 devtools::install()
 ```
 
+```{r}
+create_zenodo_json <- function(
+  creators = NULL,
+  license = NULL,
+  title = NULL,
+  related_identifiers = NULL,
+  keywords = NULL,
+  communities = NULL,
+  grants = NULL,
+  filename = "zenodo.json"
+) {
+  
+  # Check if creators is a list, if not, convert it to a list
+  if (!is.null(creators) && !is.list(creators)) {
+    stop("Creators must be a list of lists")
+  }
+  
+  # Check if related_identifiers is a list, if not, convert it to a list
+  if (!is.null(related_identifiers) && !is.list(related_identifiers)) {
+    stop("Related identifiers must be a list of lists")
+  }
+  
+  # Check if communities is a list, if not, convert it to a list
+  if (!is.null(communities) && !is.list(communities)) {
+    stop("Communities must be a list of lists")
+  }
+  
+  # Check if grants is a list, if not, convert it to a list
+  if (!is.null(grants) && !is.list(grants)) {
+    stop("Grants must be a list of lists")
+  }
+  
+  # Create the zenodo json object
+  zenodo_json <- list(
+    creators = creators,
+    license = license,
+    title = title,
+    related_identifiers = related_identifiers,
+    keywords = keywords,
+    communities = communities,
+    grants = grants
+  )
+  
+  # Remove any NULL values from the zenodo json object
+  zenodo_json <- zenodo_json[sapply(zenodo_json, function(x) !is.null(x))]
+  
+  # Write the zenodo json object to a file
+  jsonlite::write_json(zenodo_json, filename, pretty = TRUE)
+}
+
+creators <- list(
+  list(orcid = aut1$ORCID, affiliation = aut1$affiliation, name = paste0(aut1$given, ", ", aut1$family))
+)
+
+#related_identifiers <- list(
+#  list(scheme = "doi", identifier = "10.1234/software.paper.5678", relation = "isDocumentedBy", resource_type = "publication-article")
+#)
+
+#communities <- list(
+#  list(identifier = "global-health-engineering")
+#)
+# maybe?
+
+#grants <- list(
+#  list(id = "777541")
+#)
+
+create_zenodo_json(
+  creators = creators,
+  license = license,
+  title = title,
+  #related_identifiers = related_identifiers,
+  #keywords = c("Cats", "Laser", "Behavior"),
+  #communities = communities,
+  #grants = grants
+)
+```
 ```{r}
 doi = "10.5281/zenodo.15423460"
 update_citation(doi)
