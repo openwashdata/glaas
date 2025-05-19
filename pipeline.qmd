@@ -495,7 +495,7 @@ create_zenodo_json(
 )
 ```
 ```{r}
-doi = "10.5281/zenodo.15423460"
+doi = "10.5281/zenodo.15423459"
 update_citation(doi)
 ```
 MUST CHANGE: delete current doi and replace
