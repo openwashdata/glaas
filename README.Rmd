@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
   fig.retina = 2,
   fig.align = 'center'
 )
-library(fontawesome)
 ```
 
 # glaas
@@ -39,9 +38,7 @@ GLAAS provides policy and decision-makers at all levels with reliable, easily ac
 
 ## Installation
 
-You can install the development version of glaas from
-[GitHub](https://github.com/) 
- with:
+You can install the development version of glaas from GitHub `r fontawesome::fa("github")` with:
 
 ```{r, results='hide'}
 devtools::install_github("openwashdata/glaas")

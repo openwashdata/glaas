@@ -413,7 +413,7 @@ devtools::build_readme()
 ```{r}
 setup_website()
 devtools::document()
-#devtools::check()
+devtools::check()
 devtools::install()
 ```
 
