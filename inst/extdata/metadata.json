@@ -2,13 +2,13 @@
   "@context": "https://openwashdata.org/",
   "@type": "Dataset",
   "name": "glaas",
-  "description": "GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.",
+  "description": "GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.",
   "publisher": {
     "@type": "Organization",
     "name": "openwashdata @ Global Health Engineering, ETH Zurich",
     "url": "https://openwashdata.org/"
   },
-  "datePublished": "2025-05-14",
+  "datePublished": "2025-05-19",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "keywords": null,
   "distribution": {

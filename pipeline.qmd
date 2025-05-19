@@ -24,7 +24,7 @@ root_name <- basename(here::here())
 github_user <- "openwashdata"
 aut1 <- list(given = "Nicolo", family = "Massari", role = c("aut", "cre"), email = "nmassari@ethz.ch", ORCID = "0009-0006-8421-930X", affiliation="ETH Zurich")
 title = "UN-Water Global Analysis and Assessment of Sanitation and Drinking-water"
-description = "GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups."
+description = "GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups."
 
 # CONSTANTS
 data_name <- paste0(root_name, ".csv")
@@ -413,7 +413,7 @@ devtools::build_readme()
 ```{r}
 setup_website()
 devtools::document()
-devtools::check()
+#devtools::check()
 devtools::install()
 ```
 

@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
   fig.retina = 2,
   fig.align = 'center'
 )
+library(fontawesome)
 ```
 
 # glaas
@@ -34,16 +35,64 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-GLAAS provides policy- and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.
+GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.
 
 ## Installation
 
 You can install the development version of glaas from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/) 
+ with:
 
-``` r
-install.packages("devtools")
+```{r, results='hide'}
 devtools::install_github("openwashdata/glaas")
+```
+Alternatively, you can download the individual datasets as a CSV file from the table below.
+<center>\n
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+extdata_path <- "https://github.com/openwashdata/glaas/raw/main/inst/extdata/"
+
+readr::read_csv("data-raw/dictionary.csv") |> 
+  dplyr::distinct(file_name) |> 
+  dplyr::mutate(file_name = stringr::str_remove(file_name, ".rda")) |> 
+  dplyr::rename(dataset = file_name) |> 
+  dplyr::mutate(
+    CSV = paste0("[Download CSV](", extdata_path, dataset, ".csv)")
+  ) |> 
+  knitr::kable()
+
+```
+\n</center>\n
+
+## Data
+```{r}
+library(glaas)
+```
+
+### glaas
+
+The dataset `glaas` has `r nrow(glaas)` observations and `r ncol(glaas)` variables
+
+```{r}
+glaas |> 
+  head(3) |> 
+  gt::gt() |>
+  gt::as_raw_html()
+```
+
+For an overview of the variable names, see the following table.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+readr::read_csv("data-raw/dictionary.csv") |>
+  dplyr::filter(file_name == "glaas.rda") |>
+  dplyr::select(variable_name:description) |> 
+  knitr::kable(booktabs = TRUE) |> 
+  kableExtra::kable_styling(
+    full_width = FALSE,
+    #font_size = 12,
+    bootstrap_options = c("striped"),
+    position = "center"
+  )# |> 
+  #kableExtra::scroll_box(height = "200px", width = "100%")
 ```
 
 ## License
