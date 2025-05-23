@@ -65,7 +65,7 @@ data(list = package, package = package)
 You can install the development version of ``r desc::desc_get_field("Package")`` from GitHub `r fontawesome::fa("github")` with:
 
 ``` r
-devtools::install_github(`r organisation_package`, dependencies = TRUE)
+devtools::install_github("`r organisation_package`", dependencies = TRUE)
 ```
 
 -----
