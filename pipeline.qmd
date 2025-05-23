@@ -6,6 +6,7 @@ format: html
 ```
 
 # Fetch Data from XMart
+
 ```{r}
 base_url <- "https://xmart-api-public.who.int/WASHMART/GLAAS_EN_2?$format=csv"
 output_file <- here::here("data-raw", "glaas.csv")
@@ -18,6 +19,7 @@ fetch_odata(base_url, out_file = output_file)
 ```
 
 # Washr pipeline
+
 ```{r}
 # USER SETUP
 root_name <- basename(here::here())
@@ -34,11 +36,13 @@ data_path <- here::here("inst", "extdata", data_name)
 
 license <- "cc-by-4.0"
 ```
+
 ```{r}
 devtools::install_github("openwashdata/washr")
 library(washr)
 setup_rawdata()
 ```
+
 ```{r}
 # Description ------------------------------------------------------------------
 # R script to process uploaded raw data into a tidy, analysis-ready data frame
@@ -89,9 +93,11 @@ readr::write_csv(glaas, data_path)
 ```{r}
 setup_dictionary()
 ```
+
 ```{python}
 r.data_path
 ```
+
 ```{python}
 import os
 import json
@@ -316,7 +322,6 @@ usethis::use_author(
 ```
 
 ```{r}
-
 #' Update the DESCRIPTION file to conform with openwashdata standards
 #'
 #' @description
@@ -349,11 +354,30 @@ update_description <- function(github_user, title, description, file = ".", lang
   # package
   pkgname <- desc::desc_get("Package", file = file)[[1]]
   # title
-  desc::desc_set("Title", title)
+  desc::desc_set("Title", title, file = file)
   # version
+  # fetch latest release from GitHub
+  url <- paste0("https://api.github.com/repos/", gsub("https://github.com/", "", github_user), "/", pkgname, "/releases")
+  response <- httr::GET(url)
+  if(httr::status_code(response) == 200){
+    releases <- jsonlite::fromJSON(httr::content(response, "text"))["tag_name"]
+    if(length(releases) > 0){
+      versions <- gsub("v", "", releases$tag_name)
+      # pick latest
+      version_parts <- strsplit(versions, "\\.")[[1]]
+      # bump version
+      version_parts[3] <- as.character(as.integer(version_parts[3]) + 1)
+      new_version <- paste(version_parts, collapse = ".")
+      desc::desc_set("Version", new_version, file = file)
+    } else {
+      desc::desc_set("Version", "0.1.0", file = file)
+    }
+  } else {
+    desc::desc_set("Version", "0.1.0", file = file)
+  }
   # authors
   # description
-  desc::desc_set("Description", description)
+  desc::desc_set("Description", description, file = file)
   # license
   usethis::use_ccby_license()
   # language
@@ -374,6 +398,7 @@ update_description <- function(github_user, title, description, file = ".", lang
                  paste0("https://github.com/", github_user, "/", pkgname, "/", "issues"),
                  file = file)
 }
+
 ```
 
 ```{r}
@@ -382,7 +407,6 @@ update_description(github_user = github_user, title=title, description=descripti
 
 ```{r}
 devtools::document()
-devtools::check()
 devtools::install()
 ```
 
@@ -394,7 +418,6 @@ add_creator(name=paste(aut$given, aut$last, sep=" "),
             affiliation=aut$affiliation) # Get from use_author
 generate_jsonld()
 devtools::document()
-devtools::check()
 devtools::install()
 ```
 
@@ -494,11 +517,17 @@ create_zenodo_json(
   #grants = grants
 )
 ```
+
 ```{r}
 doi = "10.5281/zenodo.15423459"
 update_citation(doi)
 ```
+
 MUST CHANGE: delete current doi and replace
+
 ```{r}
+devtools::document()
+devtools::install()
+devtools::build_readme()
 devtools::build_site()
 ```

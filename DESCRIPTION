@@ -1,6 +1,6 @@
 Package: glaas
 Title: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water
-Version: 0.0.0.9000
+Version: 0.1.3
 Authors@R: 
     person("Nicolo", "Massari", , "nmassari@ethz.ch", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0006-8421-930X"))
@@ -14,6 +14,6 @@ Depends:
 LazyData: true
 Language: en-GB
 Config/Needs/website: rmarkdown
-Date: 2025-05-19
+Date: 2025-05-23
 URL: https://github.com/openwashdata/glaas
 BugReports: https://github.com/openwashdata/glaas/issues
