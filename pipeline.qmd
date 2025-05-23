@@ -515,15 +515,15 @@ create_zenodo_json(
 ```
 
 ```{r}
-doi = "10.5281/zenodo.15423459"
-update_citation(doi)
-```
-
-MUST CHANGE: delete current doi and replace
-
-```{r}
 devtools::document()
 devtools::install()
 devtools::build_readme()
 devtools::build_site()
 ```
+
+```{r}
+doi = "10.5281/zenodo.15497462"
+update_citation(doi)
+```
+
+Delete current doi before updating
