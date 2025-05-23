@@ -103,4 +103,5 @@ Please cite this package using:
 
 ```{r}
 citation("glaas")
+
 ```
