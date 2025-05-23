@@ -20,10 +20,32 @@ knitr::opts_chunk$set(
   fig.retina = 2,
   fig.align = 'center'
 )
+
+library(desc)
+library(dplyr)
+library(readr)
+library(gt)
+library(kableExtra)
+library(fontawesome)
+
+package <- desc::desc_get_field("Package")
+organisation <- desc::desc_get_field("Organisation") # Assuming you have an 'Organisation' field in DESCRIPTION
+organisation_package <- paste0(organisation, "/", package)
+browser_favicon_colour <- "lightblue"
+
+# Conditionally install and load the package
+if (!requireNamespace(package, quietly = TRUE)) {
+  devtools::install_github(organisation_package, dependencies = TRUE, upgrade = "never")
+}
+library(package, character.only = TRUE)
+
+# Assuming main dataset is also named after the package
+data(list = package, package = package)
+
 ```
 
-# glaas
-***UN-Water Global Analysis and Assessment of Sanitation and Drinking-water***
+# `r desc::desc_get_field("Package")`
+***`r desc::desc_get_field("Title")`***
 
 <!-- badges: start -->
 
@@ -34,74 +56,92 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.
+`r desc::desc_get_field("Description")`
+
+-----
 
 ## Installation
 
-You can install the development version of glaas from GitHub `r fontawesome::fa("github")` with:
+You can install the development version of ``r desc::desc_get_field("Package")`` from GitHub `r fontawesome::fa("github")` with:
 
-```{r, results='hide'}
-devtools::install_github("openwashdata/glaas")
+``` r
+devtools::install_github(`r organisation_package`, dependencies = TRUE)
 ```
-Alternatively, you can download the individual datasets as a CSV file from the table below.
-<center>\n
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-extdata_path <- "https://github.com/openwashdata/glaas/raw/main/inst/extdata/"
 
-readr::read_csv("data-raw/dictionary.csv") |> 
-  dplyr::distinct(file_name) |> 
-  dplyr::mutate(file_name = stringr::str_remove(file_name, ".rda")) |> 
-  dplyr::rename(dataset = file_name) |> 
+-----
+
+### Download as CSV Files
+
+If you prefer to work with the data outside of R, you can download individual datasets as CSV files.
+
+1.  **Right-click** on the "Download CSV" link for the dataset you want.
+2.  Select **"Save Link As"**  [`r fontawesome::fa("chrome", fill = browser_favicon_colour)`](https://www.google.com/chrome/) [`r fontawesome::fa("edge", fill = browser_favicon_colour)`](https://www.microsoft.com/edge/) [`r fontawesome::fa("firefox", fill = browser_favicon_colour)`](https://www.mozilla.org/firefox/) or **"Download Linked File"** [`r fontawesome::fa("safari", fill = browser_favicon_colour)`](https://www.apple.com/safari/).
+3.  Choose where you'd like to save the file on your computer.
+
+</center>\n 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+extdata_path <- c(paste0(desc::desc_get_field("URL"), "/raw/main/inst/extdata/"))
+
+readr::read_csv("data-raw/dictionary.csv") |>
+  dplyr::distinct(file_name) |>
+  dplyr::mutate(file_name = stringr::str_remove(file_name, ".rda")) |>
+  dplyr::rename(dataset = file_name) |>
   dplyr::mutate(
     CSV = paste0("[Download CSV](", extdata_path, dataset, ".csv)")
-  ) |> 
+  ) |>
   knitr::kable()
 
 ```
-\n</center>\n
 
+ \n</center>\n 
+ 
 ## Data
-```{r}
-library(glaas)
+``` r
+library(`r package`)
 ```
 
 ### glaas
 
-The dataset `glaas` has `r nrow(glaas)` observations and `r ncol(glaas)` variables
+The dataset ``r desc::desc_get_field("Package")`` has `r nrow(get(desc::desc_get_field("Package")))` observations and `r ncol(get(desc::desc_get_field("Package")))` variables
 
-```{r}
-glaas |> 
+``` r
+get(`r package`) |> 
   head(3) |> 
   gt::gt() |>
   gt::as_raw_html()
 ```
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+get(package) |> 
+  head(3) |> 
+  gt::gt() |>
+  gt::as_raw_html()
+```
+
+-----
+
 For an overview of the variable names, see the following table.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 readr::read_csv("data-raw/dictionary.csv") |>
-  dplyr::filter(file_name == "glaas.rda") |>
+  dplyr::filter(file_name == paste0(package, ".rda")) |>
   dplyr::select(variable_name:description) |> 
   knitr::kable(booktabs = TRUE) |> 
   kableExtra::kable_styling(
     full_width = FALSE,
-    #font_size = 12,
     bootstrap_options = c("striped"),
     position = "center"
-  )# |> 
-  #kableExtra::scroll_box(height = "200px", width = "100%")
+  )
 ```
 
 ## License
 
 Data are available as
-[CC-BY](https://github.com/openwashdata/%7B%7B%7Bpackagename%7D%7D%7D/blob/main/LICENSE.md).
+[CC-BY](https://github.com/openwashdata/`r package`/blob/main/LICENSE.md).
 
 ## Citation
 
-Please cite this package using:
-
-```{r}
-citation("glaas")
-
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+citation(package)
 ```

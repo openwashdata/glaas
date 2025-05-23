@@ -22,19 +22,41 @@ finance. GLAAS monitors elements of WASH systems that are required to
 sustain and extend WASH services and systems to all, and especially to
 the most vulnerable population groups.
 
+------------------------------------------------------------------------
+
 ## Installation
 
-You can install the development version of glaas from GitHub <img
+You can install the development version of `glaas` from GitHub <img
 src="man/figures/README-fa-icon-9e25601f72c0b4fff1c079a486ca8bba.svg"
 style="width:0.97em;height:1em" /> with:
 
 ``` r
-devtools::install_github("openwashdata/glaas")
+devtools::install_github(openwashdata/glaas, dependencies = TRUE)
 ```
 
-Alternatively, you can download the individual datasets as a CSV file
-from the table below.
-<center>
+------------------------------------------------------------------------
+
+### Download as CSV Files
+
+If you prefer to work with the data outside of R, you can download
+individual datasets as CSV files.
+
+1.  **Right-click** on the “Download CSV” link for the dataset you want.
+2.  Select **“Save Link As”** [<img
+    src="man/figures/README-fa-icon-f6fc819029928ec09c2dec52c3e97c2c.svg"
+    style="width:1em;height:1em" />](https://www.google.com/chrome/)
+    [<img
+    src="man/figures/README-fa-icon-23e2a5d86bc06a162993145fc309096b.svg"
+    style="width:1em;height:1em" />](https://www.microsoft.com/edge/)
+    [<img
+    src="man/figures/README-fa-icon-257c6981c5f3bc5aa2f58bb36c9eeea0.svg"
+    style="width:1em;height:1em" />](https://www.mozilla.org/firefox/)
+    or **“Download Linked File”** [<img
+    src="man/figures/README-fa-icon-59af91aa63168076e68ef3229be583a2.svg"
+    style="width:1em;height:1em" />](https://www.apple.com/safari/).
+3.  Choose where you’d like to save the file on your computer.
+
+</center>
 
 | dataset | CSV |
 |:---|:---|
@@ -53,13 +75,13 @@ library(glaas)
 The dataset `glaas` has 263033 observations and 18 variables
 
 ``` r
-glaas |> 
+get(glaas) |> 
   head(3) |> 
   gt::gt() |>
   gt::as_raw_html()
 ```
 
-<div id="kavrpmpmws" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="garcdjzuef" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   &#10;  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
   <thead style="border-style: none;">
     <tr class="gt_col_headings" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
@@ -142,6 +164,8 @@ glaas |>
   &#10;  
 </table>
 </div>
+
+------------------------------------------------------------------------
 
 For an overview of the variable names, see the following table.
 
@@ -538,30 +562,25 @@ Decimal.
 ## License
 
 Data are available as
-[CC-BY](https://github.com/openwashdata/%7B%7B%7Bpackagename%7D%7D%7D/blob/main/LICENSE.md).
+[CC-BY](https://github.com/openwashdata/glaas/blob/main/LICENSE.md).
 
 ## Citation
 
-Please cite this package using:
-
-``` r
-citation("glaas")
-#> To cite package 'glaas' in publications use:
-#> 
-#>   Massari N (2025). "glaas: UN-Water Global Analysis and Assessment of
-#>   Sanitation and Drinking-water." doi:10.5281/zenodo.15423459
-#>   <https://doi.org/10.5281/zenodo.15423459>,
-#>   <https://github.com/openwashdata/glaas>.
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Misc{massari:2025,
-#>     title = {glaas: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water},
-#>     author = {Nicolo Massari},
-#>     year = {2025},
-#>     doi = {10.5281/zenodo.15423459},
-#>     url = {https://github.com/openwashdata/glaas},
-#>     abstract = {GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.},
-#>     version = {0.1.3},
-#>   }
-```
+    #> To cite package 'glaas' in publications use:
+    #> 
+    #>   Massari N (2025). "glaas: UN-Water Global Analysis and Assessment of
+    #>   Sanitation and Drinking-water." doi:10.5281/zenodo.15423459
+    #>   <https://doi.org/10.5281/zenodo.15423459>,
+    #>   <https://github.com/openwashdata/glaas>.
+    #> 
+    #> A BibTeX entry for LaTeX users is
+    #> 
+    #>   @Misc{massari:2025,
+    #>     title = {glaas: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water},
+    #>     author = {Nicolo Massari},
+    #>     year = {2025},
+    #>     doi = {10.5281/zenodo.15423459},
+    #>     url = {https://github.com/openwashdata/glaas},
+    #>     abstract = {GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.},
+    #>     version = {0.1.3},
+    #>   }

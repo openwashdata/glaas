@@ -4,6 +4,7 @@ Version: 0.1.3
 Authors@R: 
     person("Nicolo", "Massari", , "nmassari@ethz.ch", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0006-8421-930X"))
+Organisation: openwashdata
 Description: GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.
 License: CC BY 4.0
 Encoding: UTF-8
