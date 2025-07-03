@@ -94,6 +94,10 @@ readr::write_csv(glaas, data_path)
 setup_dictionary()
 ```
 
+```{r}
+reticulate::py_install("./gendict", method = "pip", args = c("--editable", "."))
+```
+
 ```{python}
 r.data_path
 ```
@@ -101,7 +105,7 @@ r.data_path
 ```{python}
 import os
 import json
-from gendict.gendict import core
+from gendict import core
 
 config_path = os.path.join(os.path.expanduser("~"), 'config.json')
 
@@ -111,7 +115,7 @@ with open(config_path, 'r') as file:
 context, response, descriptions = core.gendict(config["HELMHOLTZ_API_KEY"],
                                                r.data_path, 
                                                max_unique_values=5, 
-                                               model=0, 
+                                               model=1, 
                                                temperature=0, 
                                                top_p=0.5, 
                                                max_tokens=999, 
@@ -119,7 +123,7 @@ context, response, descriptions = core.gendict(config["HELMHOLTZ_API_KEY"],
 print(f"Context:\n{context}\n\nResponse:\n{response}\n\nDescriptions:\n{descriptions}")
 
 if descriptions:
-    core.upload_descriptions_from_json(descriptions, in_file="data-raw/dictionary.csv")
+    core.upload_descriptions_from_json(r.data_path, descriptions, "data-raw/dictionary.csv")
 ```
 
 ```{r}
