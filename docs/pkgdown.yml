@@ -2,7 +2,7 @@ pandoc: 3.6.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-02-05T11:25Z
+last_built: 2026-02-10T10:44Z
 urls:
-  reference: https://openwashdata.github.io/glass.updated/reference
-  article: https://openwashdata.github.io/glass.updated/articles
+  reference: https://openwashdata.github.io/glaas/reference
+  article: https://openwashdata.github.io/glaas/articles

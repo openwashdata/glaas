@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# glass.updated
+# glaas
 
 An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide.
 
@@ -19,11 +19,11 @@ While the GLAAS data is available for visualization and download on the [officia
 
 ## Installation
 
-You can install `glass.updated` from GitHub:
+You can install `glaas` from GitHub:
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("openwashdata/glass.updated")
+devtools::install_github("openwashdata/glaas")
 ```
 
 **Note on package size:** Due to the large size of the dataset (259,313 rows × 121 variables), this package is not available on CRAN. However, the data uses **lazy loading**, which means the dataset is only loaded into memory when you explicitly access it (e.g., with `data("glaas")` or by referencing `glaas` directly). This keeps the package footprint small until you actually need the data.
@@ -76,7 +76,7 @@ For a complete description of all 121 variables, see `?glaas` after loading the 
 ## Usage Examples
 
 ```{r example}
-library(glass.updated)
+library(glaas)
 library(tidyverse)
 
 # Load the dataset
@@ -201,7 +201,7 @@ glaas |>
 
 Contributions to improve the package are welcome! Here's how you can help:
 
-1. **Report issues**: If you find bugs or have suggestions, please [open an issue](https://github.com/openwashdata/glass.updated/issues)
+1. **Report issues**: If you find bugs or have suggestions, please [open an issue](https://github.com/openwashdata/glaas/issues)
 2. **Submit pull requests**: Fork the repository, make your changes, and submit a PR
 3. **Improve documentation**: Help expand examples or clarify variable descriptions
 4. **Add features**: Suggest or implement helper functions for common analyses
@@ -219,9 +219,9 @@ If you use this package in your research or publications, please cite both the p
 
 **Package citation:**
 ```
-openwashdata (2026). glass.updated: WHO GLAAS Dataset for R.
+openwashdata (2026). glaas: WHO GLAAS Dataset for R.
 R package version 0.0.0.9000.
-https://github.com/openwashdata/glass.updated
+https://github.com/openwashdata/glaas
 ```
 
 **Original data source:**

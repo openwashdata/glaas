@@ -4,10 +4,10 @@
 # --------------------------------------------
  
 cff-version: 1.2.0
-message: 'To cite package "glass.updated" in publications use:'
+message: 'To cite package "glaas" in publications use:'
 type: software
 license: CC-BY-4.0
-title: 'glass.updated:  Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)'
+title: 'glaas:  Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)'
 version: 0.0.0.9000
 abstract: An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide..
 authors:

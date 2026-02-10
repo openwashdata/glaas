@@ -1,4 +1,4 @@
-# glass.updated
+# glaas
 
 An R data package providing comprehensive access to the UN-Water Global
 Analysis and Assessment of Sanitation and Drinking-water (GLAAS)
@@ -14,11 +14,11 @@ survey cycles.
 
 ## Installation
 
-You can install `glass.updated` from GitHub:
+You can install `glaas` from GitHub:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("openwashdata/glass.updated")
+devtools::install_github("openwashdata/glaas")
 ```
 
 **Note on package size:** Due to the large size of the dataset (259,313
@@ -77,13 +77,13 @@ The dataset is organized around several core dimensions:
   breakdowns
 
 For a complete description of all 121 variables, see
-[`?glaas`](https://openwashdata.github.io/glass.updated/reference/glaas.md)
+[`?glaas`](https://openwashdata.github.io/glaas/reference/glaas.md)
 after loading the package.
 
 ## Usage Examples
 
 ``` r
-library(glass.updated)
+library(glaas)
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -237,8 +237,7 @@ Contributions to improve the package are welcome! Here’s how you can
 help:
 
 1.  **Report issues**: If you find bugs or have suggestions, please
-    [open an
-    issue](https://github.com/openwashdata/glass.updated/issues)
+    [open an issue](https://github.com/openwashdata/glaas/issues)
 2.  **Submit pull requests**: Fork the repository, make your changes,
     and submit a PR
 3.  **Improve documentation**: Help expand examples or clarify variable
@@ -262,9 +261,9 @@ both the package and the original GLAAS data source:
 **Package citation:**
 
 ``` R
-openwashdata (2026). glass.updated: WHO GLAAS Dataset for R.
+openwashdata (2026). glaas: WHO GLAAS Dataset for R.
 R package version 0.0.0.9000.
-https://github.com/openwashdata/glass.updated
+https://github.com/openwashdata/glaas
 ```
 
 **Original data source:**
@@ -277,7 +276,6 @@ World Health Organization. https://glaas.who.int/
 ## License
 
 The package code is licensed under [CC BY
-4.0](https://openwashdata.github.io/glass.updated/LICENSE.md). The GLAAS
-data is provided by the World Health Organization. Please refer to the
-[GLAAS data portal](https://glaas.who.int/) for specific terms of data
-use.
+4.0](https://openwashdata.github.io/glaas/LICENSE.md). The GLAAS data is
+provided by the World Health Organization. Please refer to the [GLAAS
+data portal](https://glaas.who.int/) for specific terms of data use.

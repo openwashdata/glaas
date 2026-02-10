@@ -2,5 +2,5 @@
 
 ## All functions
 
-- [`glaas`](https://openwashdata.github.io/glass.updated/reference/glaas.md)
-  : WHO GLAAS Dataset
+- [`glaas`](https://openwashdata.github.io/glaas/reference/glaas.md) :
+  WHO GLAAS Dataset

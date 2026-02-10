@@ -1,4 +1,4 @@
-Package: glass.updated
+Package: glaas
 Title: Complete Data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)
 Version: 0.0.0.9000
 Authors@R: c(
@@ -16,4 +16,4 @@ BugReports: https://github.com/openwashdata/glaas/issues
 Date: 2026-02-05
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3

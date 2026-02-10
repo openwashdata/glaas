@@ -1,6 +1,6 @@
 bibentry(
   bibtype = "Manual",
-  title = "glass.updated: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)",
+  title = "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)",
   author = c(
     person(
       given = "Nicolo",
@@ -22,7 +22,7 @@ bibentry(
   url = "https://github.com/openwashdata/glaas",
   textVersion = paste(
     "Massari N, Walder C (2026).",
-    "glass.updated: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).",
+    "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).",
     "R package version 0.0.0.9000, https://github.com/openwashdata/glaas."
   )
 )
