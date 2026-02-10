@@ -22,63 +22,12 @@ You can install `glaas` from GitHub:
 devtools::install_github("openwashdata/glaas")
 ```
 
-**Note on package size:** Due to the large size of the dataset (259,313
-rows × 121 variables), this package is not available on CRAN. However,
-the data uses **lazy loading**, which means the dataset is only loaded
-into memory when you explicitly access it (e.g., with `data("glaas")` or
-by referencing `glaas` directly). This keeps the package footprint small
-until you actually need the data.
-
-## Data Structure
-
-The package contains a single dataset: `glaas`
-
-- **Dimensions**: 259,313 rows × 121 variables
-- **Coverage**: Multiple GLAAS survey cycles (2013, 2016, 2018, 2021,
-  2024)
-- **Geographic scope**: WHO Member States and territories
-- **Thematic areas**: Finance, human resources, monitoring, systems,
-  targets, and more
-
-### Key Variables
-
-The dataset is organized around several core dimensions:
-
-**Geographic Information:**
-
-- `country_code`, `country_name`: ISO codes and country names
-- `parent_location_name`: WHO regions (e.g., Eastern Mediterranean
-  Region)
-- `region_sdg_name`: SDG regional groupings
-- `region_world_bank_name`: World Bank income classifications
-
-**Indicators:**
-
-- `indicator_code`, `indicator_prefix`: Unique indicator identifiers
-- `indicator_name`: Full description of WASH indicators
-- `grand_parent`, `parent`: Thematic and sub-thematic categorization
-
-**Temporal Information:**
-
-- `time_period`, `data_year`: Survey year
-- `survey_round`: GLAAS survey cycle
-- `is_comparable_*`: Flags for cross-cycle comparability
-
-**Data Values:**
-
-- `value_code_numeric`: Numeric indicator values
-- `value_text`: Categorical or text responses
-- `value_amount`: Financial data (where applicable)
-- `unit_of_measure`: Units (%, USD, etc.)
-
-**Disaggregation:**
-
-- `dimension1_value`, `dimension2_value`, etc.: Service types
-  (drinking-water, sanitation), settings (urban, rural), and other
-  breakdowns
-
-For a complete description of all 121 variables, see `?glaas` after
-loading the package.
+> \[!WARNING\] **Note on package size:** Due to the large size of the
+> dataset (259,313 rows × 121 variables), this package is not available
+> on CRAN. However, the data uses **lazy loading**, which means the
+> dataset is only loaded into memory when you explicitly access it with
+> `data("glaas")`. This keeps the package footprint small until you
+> actually need the data.
 
 ## Usage Examples
 
@@ -96,10 +45,11 @@ library(tidyverse)
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
-# Load the dataset
 data("glaas")
+```
 
-# Plot 1: Survey participation over time
+``` r
+# Survey participation over time
 glaas |>
   group_by(time_period) |>
   summarise(n_countries = n_distinct(country_name)) |>
@@ -126,7 +76,7 @@ glaas |>
 
 ``` r
 
-# Plot 2: Participation by World Bank income group
+# Participation by World Bank income group
 glaas |>
   filter(!is.na(region_world_bank_name)) |>
   group_by(time_period, region_world_bank_name) |>
@@ -164,7 +114,7 @@ glaas |>
 
 ``` r
 
-# Plot 3: Participation by UNICEF region
+# Participation by UNICEF region
 glaas |>
   filter(!is.na(region_unicef_reporting_name)) |>
   group_by(time_period, region_unicef_reporting_name) |>
@@ -198,7 +148,7 @@ glaas |>
 
 ``` r
 
-# Plot 4: Thematic coverage
+# Thematic coverage
 glaas |>
   filter(!is.na(grand_parent_text)) |>
   group_by(time_period, grand_parent_text) |>
@@ -254,19 +204,12 @@ When contributing, please:
 
 ## Citation
 
-If you use this package in your research or publications, please cite
-both the package and the original GLAAS data source:
+If you use this package in your research or publications, please cite it
+as follows:
 
-**Package citation:**
-
-    openwashdata (2026). glaas: WHO GLAAS Dataset for R.
-    R package version 0.0.0.9000.
-    https://github.com/openwashdata/glaas
-
-**Original data source:**
-
-    UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).
-    World Health Organization. https://glaas.who.int/
+    Massari N, Walder C (2026).
+    glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).
+    R package version 0.0.0.9000, https://github.com/openwashdata/glaas.
 
 ## License
 
