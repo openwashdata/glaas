@@ -4,28 +4,26 @@
 # --------------------------------------------
  
 cff-version: 1.2.0
-message: 'To cite package "glaas" in publications use:'
+message: 'To cite package "glass.updated" in publications use:'
 type: software
 license: CC-BY-4.0
-title: 'glaas: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water'
-version: 0.1.3
-doi: 10.5281/zenodo.15497462
-abstract: GLAAS provides policy and decision-makers at all levels with reliable, easily
-  accessible, comprehensive data on water, sanitation and hygiene (WASH) systems,
-  including on governance, monitoring, human resources and finance. GLAAS monitors
-  elements of WASH systems that are required to sustain and extend WASH services and
-  systems to all, and especially to the most vulnerable population groups.
+title: 'glass.updated:  Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)'
+version: 0.0.0.9000
+abstract: An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide..
 authors:
 - family-names: Massari
   given-names: Nicolo
   email: nmassari@ethz.ch
   orcid: https://orcid.org/0009-0006-8421-930X
+- family-names: Walder
+  given-names: Colin
+  email: cwalder@ethz.ch
+  orcid: https://orcid.org/0009-0006-0969-1954
 repository-code: https://github.com/openwashdata/glaas
 url: https://github.com/openwashdata/glaas
-date-released: '2025-05-23'
+date-released: '2026-02-05'
 contact:
-- family-names: Massari
-  given-names: Nicolo
-  email: nmassari@ethz.ch
-  orcid: https://orcid.org/0009-0006-8421-930X
-
+- family-names: Schöbitz
+  given-names: Lars
+  email: lschoebitz@ethz.ch
+  orcid: https://orcid.org/0000-0003-2196-5015

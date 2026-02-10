@@ -1,586 +1,277 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+# glass.updated
 
-# glaas
+An R data package providing comprehensive access to the UN-Water Global
+Analysis and Assessment of Sanitation and Drinking-water (GLAAS)
+dataset. The WHO GLAAS survey collects data on water, sanitation, and
+hygiene (WASH) systems, policies, and financing from countries
+worldwide.
 
-***UN-Water Global Analysis and Assessment of Sanitation and
-Drinking-water***
-
-<!-- badges: start -->
-
-[![License: CC BY
-4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15497462.svg)](https://zenodo.org/doi/10.5281/zenodo.15497462)
-
-<!-- badges: end -->
-
-GLAAS provides policy and decision-makers at all levels with reliable,
-easily accessible, comprehensive data on water, sanitation and hygiene
-(WASH) systems, including on governance, monitoring, human resources and
-finance. GLAAS monitors elements of WASH systems that are required to
-sustain and extend WASH services and systems to all, and especially to
-the most vulnerable population groups.
-
-------------------------------------------------------------------------
+While the GLAAS data is available for visualization and download on the
+[official GLAAS portal](https://glaas.who.int/), this package
+consolidates the entire dataset in one place, making it easy to perform
+custom analyses, generate reports, and explore meta-information across
+survey cycles.
 
 ## Installation
 
-You can install the development version of `glaas` from GitHub <img
-src="man/figures/README-fa-icon-9e25601f72c0b4fff1c079a486ca8bba.svg"
-style="width:0.97em;height:1em" /> with:
+You can install `glass.updated` from GitHub:
 
 ``` r
-devtools::install_github("openwashdata/glaas", dependencies = TRUE)
+# install.packages("devtools")
+devtools::install_github("openwashdata/glass.updated")
 ```
 
-------------------------------------------------------------------------
+**Note on package size:** Due to the large size of the dataset (259,313
+rows × 121 variables), this package is not available on CRAN. However,
+the data uses **lazy loading**, which means the dataset is only loaded
+into memory when you explicitly access it (e.g., with `data("glaas")` or
+by referencing `glaas` directly). This keeps the package footprint small
+until you actually need the data.
 
-### Download as CSV Files
+## Data Structure
 
-If you prefer to work with the data outside of R, you can download
-individual datasets as CSV files.
+The package contains a single dataset: `glaas`
 
-1.  **Right-click** on the “Download CSV” link for the dataset you want.
-2.  Select **“Save Link As”** [<img
-    src="man/figures/README-fa-icon-f6fc819029928ec09c2dec52c3e97c2c.svg"
-    style="width:1em;height:1em" />](https://www.google.com/chrome/)
-    [<img
-    src="man/figures/README-fa-icon-23e2a5d86bc06a162993145fc309096b.svg"
-    style="width:1em;height:1em" />](https://www.microsoft.com/edge/)
-    [<img
-    src="man/figures/README-fa-icon-257c6981c5f3bc5aa2f58bb36c9eeea0.svg"
-    style="width:1em;height:1em" />](https://www.mozilla.org/firefox/)
-    or **“Download Linked File”** [<img
-    src="man/figures/README-fa-icon-59af91aa63168076e68ef3229be583a2.svg"
-    style="width:1em;height:1em" />](https://www.apple.com/safari/).
-3.  Choose where you’d like to save the file on your computer.
+- **Dimensions**: 259,313 rows × 121 variables
+- **Coverage**: Multiple GLAAS survey cycles (2013, 2016, 2018, 2021,
+  2024)
+- **Geographic scope**: WHO Member States and territories
+- **Thematic areas**: Finance, human resources, monitoring, systems,
+  targets, and more
 
-</center>
+### Key Variables
 
-| dataset | CSV |
-|:---|:---|
-| glaas | [Download CSV](https://github.com/openwashdata/glaas/raw/main/inst/extdata/glaas.csv) |
+The dataset is organized around several core dimensions:
 
-</center>
+**Geographic Information:**
 
-## Data
+- `country_code`, `country_name`: ISO codes and country names
+- `parent_location_name`: WHO regions (e.g., Eastern Mediterranean
+  Region)
+- `region_sdg_name`: SDG regional groupings
+- `region_world_bank_name`: World Bank income classifications
+
+**Indicators:**
+
+- `indicator_code`, `indicator_prefix`: Unique indicator identifiers
+- `indicator_name`: Full description of WASH indicators
+- `grand_parent`, `parent`: Thematic and sub-thematic categorization
+
+**Temporal Information:**
+
+- `time_period`, `data_year`: Survey year
+- `survey_round`: GLAAS survey cycle
+- `is_comparable_*`: Flags for cross-cycle comparability
+
+**Data Values:**
+
+- `value_code_numeric`: Numeric indicator values
+- `value_text`: Categorical or text responses
+- `value_amount`: Financial data (where applicable)
+- `unit_of_measure`: Units (%, USD, etc.)
+
+**Disaggregation:**
+
+- `dimension1_value`, `dimension2_value`, etc.: Service types
+  (drinking-water, sanitation), settings (urban, rural), and other
+  breakdowns
+
+For a complete description of all 121 variables, see `?glaas` after
+loading the package.
+
+## Usage Examples
 
 ``` r
-library(glaas)
+library(glass.updated)
+library(tidyverse)
+#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.5
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
+#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
+#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+#> ✔ purrr     1.1.0     
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+# Load the dataset
+data("glaas")
+
+# Plot 1: Survey participation over time
+glaas |>
+  group_by(time_period) |>
+  summarise(n_countries = n_distinct(country_name)) |>
+  ggplot(aes(x = factor(time_period), y = n_countries)) +
+  geom_col(fill = "#0072B2", alpha = 0.9) +
+  geom_text(aes(label = n_countries), vjust = -0.5, size = 4, fontface = "bold") +
+  labs(
+    title = "GLAAS Survey Participation Over Time",
+    subtitle = "Number of countries participating in each survey cycle",
+    x = "",
+    y = "Number of Countries",
+    caption = "Source: WHO GLAAS"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  )
 ```
 
-### glaas
-
-The dataset `glaas` has 263033 observations and 18 variables
+<img src="man/figures/README-example-1.png" width="100%" />
 
 ``` r
-get(glaas) |> 
-  head(3) |> 
-  gt::gt() |>
-  gt::as_raw_html()
+
+# Plot 2: Participation by World Bank income group
+glaas |>
+  filter(!is.na(region_world_bank_name)) |>
+  group_by(time_period, region_world_bank_name) |>
+  summarise(n_countries = n_distinct(country_name), .groups = "drop") |>
+  mutate(region_world_bank_name = factor(
+    region_world_bank_name,
+    levels = c("Low income", "Lower middle income", "Upper middle income", "High income")
+  )) |>
+  ggplot(aes(
+    x = factor(time_period),
+    y = n_countries,
+    fill = region_world_bank_name
+  )) +
+  geom_col(position = "stack", alpha = 0.9) +
+  scale_fill_brewer(palette = "Set2", name = "Income Group") +
+  labs(
+    title = "GLAAS Participation by World Bank Income Classification",
+    subtitle = "Distribution of participating countries across income groups",
+    x = "",
+    y = "Number of Countries",
+    caption = "Source: WHO GLAAS"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    legend.position = "bottom",
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  guides(fill = guide_legend(nrow = 2))
 ```
 
-<div id="uyyulxuqzk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-  &#10;  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;" bgcolor="#FFFFFF">
-  <thead style="border-style: none;">
-    <tr class="gt_col_headings" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="GrandParentText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">GrandParentText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="ParentText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">ParentText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="IndText_HL" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">IndText_HL</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="LocText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">LocText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Time" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" bgcolor="#FFFFFF" valign="bottom" align="right">Time</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="IsComparable_2013" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">IsComparable_2013</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="IsComparable_2016" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">IsComparable_2016</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="IsComparable_2018" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">IsComparable_2018</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="IsComparable_2021" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">IsComparable_2021</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="IsComparable_2024" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">IsComparable_2024</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Dim1ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">Dim1ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Dim2ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">Dim2ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Dim3ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">Dim3ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Dim4ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">Dim4ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Dim5ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">Dim5ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Dim6ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#FFFFFF" valign="bottom" align="center">Dim6ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="ValText" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">ValText</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="DataType" style="border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#FFFFFF" valign="bottom" align="left">DataType</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body" style="border-style: none; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
-    <tr style="border-style: none;"><td headers="GrandParentText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Finance</td>
-<td headers="ParentText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Domestic absorption</td>
-<td headers="IndText_HL" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Absorption of domestic capital commitments (estimated %)</td>
-<td headers="LocText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Brazil</td>
-<td headers="Time" class="gt_row gt_right" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">2016</td>
-<td headers="IsComparable_2013" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2016" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2018" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2021" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2024" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="Dim1ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Drinking-water</td>
-<td headers="Dim2ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Urban</td>
-<td headers="Dim3ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim4ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim5ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim6ValText" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">NA</td>
-<td headers="ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Between 50 to 75%</td>
-<td headers="DataType" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Text</td></tr>
-    <tr style="border-style: none;"><td headers="GrandParentText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Finance</td>
-<td headers="ParentText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Domestic absorption</td>
-<td headers="IndText_HL" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Absorption of domestic capital commitments (estimated %)</td>
-<td headers="LocText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Brazil</td>
-<td headers="Time" class="gt_row gt_right" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">2013</td>
-<td headers="IsComparable_2013" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2016" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2018" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2021" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2024" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="Dim1ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Drinking-water</td>
-<td headers="Dim2ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Urban</td>
-<td headers="Dim3ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim4ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim5ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim6ValText" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">NA</td>
-<td headers="ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Less than 50%</td>
-<td headers="DataType" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Text</td></tr>
-    <tr style="border-style: none;"><td headers="GrandParentText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Finance</td>
-<td headers="ParentText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Domestic absorption</td>
-<td headers="IndText_HL" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Absorption of domestic capital commitments (estimated %)</td>
-<td headers="LocText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Barbados</td>
-<td headers="Time" class="gt_row gt_right" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: right; font-variant-numeric: tabular-nums;" valign="middle" align="right">2021</td>
-<td headers="IsComparable_2013" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">FALSE</td>
-<td headers="IsComparable_2016" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2018" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2021" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">TRUE</td>
-<td headers="IsComparable_2024" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">FALSE</td>
-<td headers="Dim1ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Sanitation</td>
-<td headers="Dim2ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Rural</td>
-<td headers="Dim3ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim4ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim5ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">NA</td>
-<td headers="Dim6ValText" class="gt_row gt_center" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center">NA</td>
-<td headers="ValText" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">No response</td>
-<td headers="DataType" class="gt_row gt_left" style="border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left;" valign="middle" align="left">Text</td></tr>
-  </tbody>
-  &#10;  
-</table>
-</div>
-
-------------------------------------------------------------------------
-
-For an overview of the variable names, see the following table.
-
-<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
-
-<thead>
-
-<tr>
-
-<th style="text-align:left;">
-
-variable_name
-</th>
-
-<th style="text-align:left;">
-
-variable_type
-</th>
-
-<th style="text-align:left;">
-
-description
-</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-
-<tr>
-
-<td style="text-align:left;">
-
-GrandParentText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The high-level category or domain of the data, such as Finance,
-Governance, or Monitoring.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-ParentText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The specific subcategory or topic within the high-level category, such
-as Domestic absorption or External funding absorption.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-IndText_HL
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The detailed description or indicator text for the high-level category,
-providing context or specific details about the data.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-LocText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The location or country associated with the data, such as Brazil or
-Barbados.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Time
-</td>
-
-<td style="text-align:left;">
-
-numeric
-</td>
-
-<td style="text-align:left;">
-
-The year in which the data was recorded or the time period of the data.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-IsComparable_2013
-</td>
-
-<td style="text-align:left;">
-
-logical
-</td>
-
-<td style="text-align:left;">
-
-A boolean value indicating whether the data is comparable to the data
-from 2013.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-IsComparable_2016
-</td>
-
-<td style="text-align:left;">
-
-logical
-</td>
-
-<td style="text-align:left;">
-
-A boolean value indicating whether the data is comparable to the data
-from 2016.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-IsComparable_2018
-</td>
-
-<td style="text-align:left;">
-
-logical
-</td>
-
-<td style="text-align:left;">
-
-A boolean value indicating whether the data is comparable to the data
-from 2018.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-IsComparable_2021
-</td>
-
-<td style="text-align:left;">
-
-logical
-</td>
-
-<td style="text-align:left;">
-
-A boolean value indicating whether the data is comparable to the data
-from 2021.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-IsComparable_2024
-</td>
-
-<td style="text-align:left;">
-
-logical
-</td>
-
-<td style="text-align:left;">
-
-A boolean value indicating whether the data is comparable to the data
-from 2024.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Dim1ValText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The first dimension value text, representing categories such as
-Drinking-water or Sanitation.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Dim2ValText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The second dimension value text, representing categories such as Urban
-or Rural.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Dim3ValText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The third dimension value text, representing categories such as
-National\* or Address.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Dim4ValText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The fourth dimension value text, representing categories such as
-Behaviour change improvement initiatives or Standards or regulations.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Dim5ValText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The fifth dimension value text, representing categories such as Themes
-or Quality.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-Dim6ValText
-</td>
-
-<td style="text-align:left;">
-
-logical
-</td>
-
-<td style="text-align:left;">
-
-The sixth dimension value text, representing categories such as
-Sufficiency or Treated.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-ValText
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The value text, providing specific details or descriptions about the
-data, such as Between 50 to 75% or No response.
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-DataType
-</td>
-
-<td style="text-align:left;">
-
-character
-</td>
-
-<td style="text-align:left;">
-
-The data type of the column, indicating whether the data is Text or
-Decimal.
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-## License
-
-Data are available as
-[CC-BY](https://github.com/openwashdata/glaas/blob/main/LICENSE.md).
+<img src="man/figures/README-example-2.png" width="100%" />
+
+``` r
+
+# Plot 3: Participation by UNICEF region
+glaas |>
+  filter(!is.na(region_unicef_reporting_name)) |>
+  group_by(time_period, region_unicef_reporting_name) |>
+  summarise(n_countries = n_distinct(country_name), .groups = "drop") |>
+  ggplot(aes(
+    x = factor(time_period),
+    y = n_countries,
+    fill = region_unicef_reporting_name
+  )) +
+  geom_col(position = "dodge", alpha = 0.85) +
+  scale_fill_viridis_d(option = "turbo", name = "UNICEF Region") +
+  labs(
+    title = "Regional Representation in GLAAS Surveys",
+    subtitle = "Number of participating countries by UNICEF reporting region",
+    x = "",
+    y = "Number of Countries",
+    caption = "Source: WHO GLAAS"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    legend.position = "bottom",
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  guides(fill = guide_legend(nrow = 3, byrow = TRUE))
+```
+
+<img src="man/figures/README-example-3.png" width="100%" />
+
+``` r
+
+# Plot 4: Thematic coverage
+glaas |>
+  filter(!is.na(grand_parent_text)) |>
+  group_by(time_period, grand_parent_text) |>
+  summarise(n_indicators = n_distinct(indicator_code), .groups = "drop") |>
+  ggplot(aes(
+    x = factor(time_period),
+    y = n_indicators,
+    group = grand_parent_text,
+    color = grand_parent_text
+  )) +
+  geom_line(linewidth = 1.2, alpha = 0.9) +
+  geom_point(size = 3, alpha = 0.9) +
+  scale_color_brewer(palette = "Dark2", name = "Thematic Area") +
+  labs(
+    title = "Evolution of GLAAS Indicator Coverage",
+    subtitle = "Number of indicators tracked per thematic area across survey cycles",
+    x = "",
+    y = "Number of Indicators",
+    caption = "Source: WHO GLAAS"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey40", size = 11),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()
+  ) +
+  guides(color = guide_legend(nrow = 2))
+```
+
+<img src="man/figures/README-example-4.png" width="100%" />
+
+## Contributing
+
+Contributions to improve the package are welcome! Here’s how you can
+help:
+
+1.  **Report issues**: If you find bugs or have suggestions, please
+    [open an
+    issue](https://github.com/openwashdata/glass.updated/issues)
+2.  **Submit pull requests**: Fork the repository, make your changes,
+    and submit a PR
+3.  **Improve documentation**: Help expand examples or clarify variable
+    descriptions
+4.  **Add features**: Suggest or implement helper functions for common
+    analyses
+
+When contributing, please:
+
+- Follow the existing code style
+- Update documentation as needed
+- Add examples for new functionality
+- Ensure the package builds without errors (`devtools::check()`)
 
 ## Citation
 
-    #> To cite package 'glaas' in publications use:
-    #> 
-    #>   Massari N (2025). "glaas: UN-Water Global Analysis and Assessment of
-    #>   Sanitation and Drinking-water." doi:10.5281/zenodo.15497462
-    #>   <https://doi.org/10.5281/zenodo.15497462>,
-    #>   <https://github.com/openwashdata/glaas>.
-    #> 
-    #> A BibTeX entry for LaTeX users is
-    #> 
-    #>   @Misc{massari:2025,
-    #>     title = {glaas: UN-Water Global Analysis and Assessment of Sanitation and Drinking-water},
-    #>     author = {Nicolo Massari},
-    #>     year = {2025},
-    #>     doi = {10.5281/zenodo.15497462},
-    #>     url = {https://github.com/openwashdata/glaas},
-    #>     abstract = {GLAAS provides policy and decision-makers at all levels with reliable, easily accessible, comprehensive data on water, sanitation and hygiene (WASH) systems, including on governance, monitoring, human resources and finance. GLAAS monitors elements of WASH systems that are required to sustain and extend WASH services and systems to all, and especially to the most vulnerable population groups.},
-    #>     version = {0.1.3},
-    #>   }
+If you use this package in your research or publications, please cite
+both the package and the original GLAAS data source:
+
+**Package citation:**
+
+    openwashdata (2026). glass.updated: WHO GLAAS Dataset for R.
+    R package version 0.0.0.9000.
+    https://github.com/openwashdata/glass.updated
+
+**Original data source:**
+
+    UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).
+    World Health Organization. https://glaas.who.int/
+
+## License
+
+The package code is licensed under [CC BY 4.0](LICENSE.md). The GLAAS
+data is provided by the World Health Organization. Please refer to the
+[GLAAS data portal](https://glaas.who.int/) for specific terms of data
+use.

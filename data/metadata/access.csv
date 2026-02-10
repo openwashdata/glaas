@@ -1,3 +1,0 @@
-fileName,name,contentUrl,encodingFormat
-glaas.csv,glaas,https://raw.githubusercontent.com/openwashdata/glaas/main/inst/extdata/glaas.csv,csv
-glaas.xlsx,glaas,https://raw.githubusercontent.com/openwashdata/glaas/main/inst/extdata/glaas.xlsx,ooxml
