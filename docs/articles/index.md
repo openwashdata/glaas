@@ -2,5 +2,5 @@
 
 ### All vignettes
 
-- [Get Started with
+- [Get started with
   glaas](https://openwashdata.github.io/glaas/articles/glaas.md):

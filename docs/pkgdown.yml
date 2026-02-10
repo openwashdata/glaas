@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   glaas: glaas.html
-last_built: 2026-02-10T11:57Z
+last_built: 2026-02-10T17:08Z
 urls:
   reference: https://openwashdata.github.io/glaas/reference
   article: https://openwashdata.github.io/glaas/articles
