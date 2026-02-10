@@ -3,7 +3,7 @@ bibentry(
   title = "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)",
   author = c(
     person(
-      given = "Nicolo",
+      given = "Nicolò",
       family = "Massari",
       email = "nmassari@ethz.ch",
       role = "aut",

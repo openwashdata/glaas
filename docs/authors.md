@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **Nicolo Massari**. Maintainer, author.
+- **Nicolò Massari**. Maintainer, author.
   [](https://orcid.org/0009-0006-8421-930X)
 
 - **Colin Walder**. Author. [](https://orcid.org/0009-0006-0969-1954)
@@ -21,7 +21,7 @@ package version 0.0.0.9000, https://github.com/openwashdata/glaas.
 
     @Manual{,
       title = {glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)},
-      author = {Nicolo Massari and Colin Walder},
+      author = {Nicolò Massari and Colin Walder},
       year = {2026},
       note = {R package version 0.0.0.9000},
       url = {https://github.com/openwashdata/glaas},

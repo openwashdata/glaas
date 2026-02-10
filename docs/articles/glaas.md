@@ -399,7 +399,7 @@ ggplot(map_funding) +
 
 ![](glaas_files/figure-html/unnamed-chunk-8-1.png)
 
-### Cross-indicator relationships
+## Cross-indicator relationships
 
 Finally, `glaas` makes it easy to look at relationships between
 variables. For example, the heatmap below explores the relationship

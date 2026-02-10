@@ -2,7 +2,7 @@
 title: "Get started with glaas"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Get Started with glaas}
+  %\VignetteIndexEntry{Get started with glaas}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -369,7 +369,7 @@ ggplot(map_funding) +
   guides(fill = guide_legend(nrow = 2))
 ```
 
-### Cross-indicator relationships
+## Cross-indicator relationships
 
 Finally, `glaas` makes it easy to look at relationships between variables. For example, the heatmap below explores the relationship between financing plan status and funding sufficiency for urban drinking-water services. Do countries with more developed financing plans tend to have better funding coverage?
 

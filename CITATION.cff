@@ -12,7 +12,7 @@ version: 0.0.0.9000
 abstract: An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide..
 authors:
 - family-names: Massari
-  given-names: Nicolo
+  given-names: Nicolò
   email: nmassari@ethz.ch
   orcid: https://orcid.org/0009-0006-8421-930X
 - family-names: Walder

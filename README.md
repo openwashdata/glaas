@@ -1,6 +1,10 @@
 
 # glaas
 
+[![License: CC BY
+4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15497462.svg)](https://zenodo.org/doi/10.5281/zenodo.15497462)
+
 An R data package providing comprehensive access to the UN-Water Global
 Analysis and Assessment of Sanitation and Drinking-water (GLAAS)
 dataset. The WHO GLAAS survey collects data on water, sanitation, and
