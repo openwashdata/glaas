@@ -1,5 +1,7 @@
-^glaas\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
+^\.claude$
+^CITATION\.cff$
 ^data-raw$
 ^LICENSE\.md$
 ^data/metadata$

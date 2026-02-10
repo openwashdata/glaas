@@ -16,6 +16,7 @@ BugReports: https://github.com/openwashdata/glaas/issues
 Date: 2026-02-05
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests:
