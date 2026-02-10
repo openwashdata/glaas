@@ -149,7 +149,9 @@ ggplot(worker_rights, aes(x = measure, y = pct, fill = dimension1_value_name)) +
   )
 ```
 
-![](glaas_files/figure-html/unnamed-chunk-5-1.png)
+![Grouped bar chart showing percentage of countries with measures fully
+in place for worker rights in drinking-water and sanitation
+sectors](glaas_files/figure-html/unnamed-chunk-5-1.png)
 
 **Note:** The number of participating countries shown here may differ
 slightly from the published GLAAS report. Possible reasons include:
@@ -278,7 +280,9 @@ ggplot(financing_plans, aes(x = pct, y = category_label, fill = status)) +
   )
 ```
 
-![](glaas_files/figure-html/unnamed-chunk-6-1.png)
+![Horizontal stacked bar chart showing existence and status of WASH
+financing plans across service
+areas](glaas_files/figure-html/unnamed-chunk-6-1.png)
 
 **Note:** The same caveats regarding differences in participating
 countries apply to this figure as well.
@@ -339,7 +343,9 @@ ggplot(map_data) +
   guides(fill = guide_legend(nrow = 1))
 ```
 
-![](glaas_files/figure-html/unnamed-chunk-7-1.png)
+![World map showing GLAAS survey participation from 2013-2024 with
+colors indicating number of cycles each country participated
+in](glaas_files/figure-html/unnamed-chunk-7-1.png)
 
 ### Funding sufficiency for drinking-water
 
@@ -397,7 +403,9 @@ ggplot(map_funding) +
   guides(fill = guide_legend(nrow = 2))
 ```
 
-![](glaas_files/figure-html/unnamed-chunk-8-1.png)
+![World map showing sufficiency of funding to reach national
+drinking-water targets based on 2024 GLAAS
+survey](glaas_files/figure-html/unnamed-chunk-8-1.png)
 
 ## Cross-indicator relationships
 
@@ -467,4 +475,6 @@ ggplot(heatmap_data, aes(x = funding, y = plan_status, fill = n)) +
   )
 ```
 
-![](glaas_files/figure-html/unnamed-chunk-9-1.png)
+![Heatmap showing relationship between financing plan status and funding
+sufficiency for urban drinking-water
+services](glaas_files/figure-html/unnamed-chunk-9-1.png)

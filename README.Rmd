@@ -39,12 +39,12 @@ devtools::install_github("openwashdata/glaas")
 
 ## Usage Examples
 
-```{r}
+```{r, message = FALSE}
 library(glaas)
 library(tidyverse)
 ```
 
-```{r example}
+```{r example, fig.alt = c("Bar chart showing GLAAS survey participation over time from 2013 to 2024", "Stacked bar chart showing participation by World Bank income classification", "Grouped bar chart showing regional representation by UNICEF reporting region", "Line chart showing evolution of GLAAS indicator coverage across thematic areas")}
 # Survey participation over time
 glaas |>
   group_by(time_period) |>

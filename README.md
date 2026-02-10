@@ -37,16 +37,6 @@ devtools::install_github("openwashdata/glaas")
 ``` r
 library(glaas)
 library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.5
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-#> ✔ purrr     1.1.0     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 ```
 
 ``` r
@@ -73,7 +63,7 @@ glaas |>
   )
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" alt="Bar chart showing GLAAS survey participation over time from 2013 to 2024" width="100%" />
 
 ``` r
 
@@ -111,7 +101,7 @@ glaas |>
   guides(fill = guide_legend(nrow = 2))
 ```
 
-<img src="man/figures/README-example-2.png" width="100%" />
+<img src="man/figures/README-example-2.png" alt="Stacked bar chart showing participation by World Bank income classification" width="100%" />
 
 ``` r
 
@@ -145,7 +135,7 @@ glaas |>
   guides(fill = guide_legend(nrow = 3, byrow = TRUE))
 ```
 
-<img src="man/figures/README-example-3.png" width="100%" />
+<img src="man/figures/README-example-3.png" alt="Grouped bar chart showing regional representation by UNICEF reporting region" width="100%" />
 
 ``` r
 
@@ -180,7 +170,7 @@ glaas |>
   guides(color = guide_legend(nrow = 2))
 ```
 
-<img src="man/figures/README-example-4.png" width="100%" />
+<img src="man/figures/README-example-4.png" alt="Line chart showing evolution of GLAAS indicator coverage across thematic areas" width="100%" />
 
 ## Contributing
 

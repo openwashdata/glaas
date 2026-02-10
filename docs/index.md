@@ -1,5 +1,9 @@
 # glaas
 
+[![License: CC BY
+4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15497462.svg)](https://zenodo.org/doi/10.5281/zenodo.15497462)
+
 An R data package providing comprehensive access to the UN-Water Global
 Analysis and Assessment of Sanitation and Drinking-water (GLAAS)
 dataset. The WHO GLAAS survey collects data on water, sanitation, and
@@ -32,16 +36,6 @@ devtools::install_github("openwashdata/glaas")
 ``` r
 library(glaas)
 library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.5
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-#> ✔ purrr     1.1.0     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 ```
 
 ``` r
@@ -68,7 +62,8 @@ glaas |>
   )
 ```
 
-![](reference/figures/README-example-1.png)
+![Bar chart showing GLAAS survey participation over time from 2013 to
+2024](reference/figures/README-example-1.png)
 
 ``` r
 
@@ -106,7 +101,8 @@ glaas |>
   guides(fill = guide_legend(nrow = 2))
 ```
 
-![](reference/figures/README-example-2.png)
+![Stacked bar chart showing participation by World Bank income
+classification](reference/figures/README-example-2.png)
 
 ``` r
 
@@ -140,7 +136,8 @@ glaas |>
   guides(fill = guide_legend(nrow = 3, byrow = TRUE))
 ```
 
-![](reference/figures/README-example-3.png)
+![Grouped bar chart showing regional representation by UNICEF reporting
+region](reference/figures/README-example-3.png)
 
 ``` r
 
@@ -175,7 +172,8 @@ glaas |>
   guides(color = guide_legend(nrow = 2))
 ```
 
-![](reference/figures/README-example-4.png)
+![Line chart showing evolution of GLAAS indicator coverage across
+thematic areas](reference/figures/README-example-4.png)
 
 ## Contributing
 

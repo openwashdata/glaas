@@ -66,7 +66,7 @@ First and foremost, the main goal of `glaas` is to make the data accessible for 
 
 This example recreates Figure 5.6 from the GLAAS 2024/2025 report, showing the percentage of countries with measures fully in place for the rights of drinking-water and sanitation workers.
 
-```{r, fig.width = 7, fig.height = 5}
+```{r, fig.width = 7, fig.height = 5, fig.alt = "Grouped bar chart showing percentage of countries with measures fully in place for worker rights in drinking-water and sanitation sectors"}
 # Filter for worker rights indicators from 2024 survey
 worker_rights <- glaas |>
   filter(
@@ -151,7 +151,7 @@ ggplot(worker_rights, aes(x = measure, y = pct, fill = dimension1_value_name)) +
 
 This example recreates Figure 6.1 from the GLAAS 2024/2025 report, showing the existence and status of WASH financing plans/strategies across different service areas.
 
-```{r, fig.width = 8, fig.height = 5}
+```{r, fig.width = 8, fig.height = 5, fig.alt = "Horizontal stacked bar chart showing existence and status of WASH financing plans across service areas"}
 # Filter for financing plan status indicator from 2024 survey
 financing_plans <- glaas |>
   filter(
@@ -270,7 +270,7 @@ Another example of how you can use data from `glaas` is mapping. The `country_co
 
 This map shows how consistently countries have participated in GLAAS surveys over time. Darker colors indicate participation in more survey cycles.
 
-```{r, fig.width = 9, fig.height = 5}
+```{r, fig.width = 9, fig.height = 5, fig.alt = "World map showing GLAAS survey participation from 2013-2024 with colors indicating number of cycles each country participated in"}
 # Get world map
 world <- ne_countries(scale = "medium", returnclass = "sf") |>
   select(iso_a3, geometry)
@@ -318,7 +318,7 @@ ggplot(map_data) +
 
 This map visualizes the sufficiency of funding to reach national drinking-water targets, based on the 2024 GLAAS survey.
 
-```{r, fig.width = 9, fig.height = 5}
+```{r, fig.width = 9, fig.height = 5, fig.alt = "World map showing sufficiency of funding to reach national drinking-water targets based on 2024 GLAAS survey"}
 # Get funding sufficiency data for drinking-water
 funding <- glaas |>
   filter(
@@ -373,7 +373,7 @@ ggplot(map_funding) +
 
 Finally, `glaas` makes it easy to look at relationships between variables. For example, the heatmap below explores the relationship between financing plan status and funding sufficiency for urban drinking-water services. Do countries with more developed financing plans tend to have better funding coverage?
 
-```{r, fig.width = 8, fig.height = 5}
+```{r, fig.width = 8, fig.height = 5, fig.alt = "Heatmap showing relationship between financing plan status and funding sufficiency for urban drinking-water services"}
 # Get financing plan status and funding sufficiency per country
 cross_indicators <- glaas |>
   filter(
