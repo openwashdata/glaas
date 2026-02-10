@@ -22,12 +22,11 @@ You can install `glaas` from GitHub:
 devtools::install_github("openwashdata/glaas")
 ```
 
-> \[!WARNING\] **Note on package size:** Due to the large size of the
-> dataset (259,313 rows × 121 variables), this package is not available
-> on CRAN. However, the data uses **lazy loading**, which means the
-> dataset is only loaded into memory when you explicitly access it with
-> `data("glaas")`. This keeps the package footprint small until you
-> actually need the data.
+> **Note on package size:** Due to the large size of the dataset
+> (259,313 rows × 121 variables), this package is not available on CRAN.
+> However, the data uses **lazy loading**, which means the dataset is
+> only loaded into memory when you actually access it. This keeps the
+> package footprint small until you need the data.
 
 ## Usage Examples
 
@@ -44,8 +43,6 @@ library(tidyverse)
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
-data("glaas")
 ```
 
 ``` r

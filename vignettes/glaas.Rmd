@@ -1,0 +1,77 @@
+---
+title: "Get Started with glaas"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started with glaas}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Installation
+
+You can install `glaas` from GitHub:
+
+```{r, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("openwashdata/glaas")
+```
+
+## Loading the data
+
+```{r}
+library(glaas)
+```
+
+Thanks to lazy loading, the dataset is available directly after loading the package - no need to call `data("glaas")`.
+
+### A note on lazy loading
+
+This package uses **lazy loading**, which means the dataset isn't loaded into memory until you actually use it. This keeps the package lightweight when you first load it.
+
+Here's an example to illustrate the concept:
+
+```r
+lobstr::mem_used()
+#> 48.74 MB
+
+library(glaas)
+lobstr::mem_used()
+#> 50.54 MB
+
+invisible(glaas)
+lobstr::mem_used()
+#> 91.24 MB
+```
+
+Notice how loading the package only adds ~2 MB to memory. The full dataset (~40 MB) is only loaded when you actually reference it.
+
+## Overview
+
+The `glaas` dataset contains data from the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) survey. It includes **`r nrow(glaas)` rows** and **`r ncol(glaas)` variables** covering multiple survey cycles.
+
+```{r}
+# Survey cycles available
+unique(glaas$time_period)
+
+# Number of countries
+length(unique(glaas$country_name))
+```
+
+## Exploring the data
+
+```{r}
+# Preview the dataset
+head(glaas)
+
+# Check available thematic areas
+unique(glaas$grand_parent_text)
+```
+
+For a complete description of all variables, see `?glaas`.

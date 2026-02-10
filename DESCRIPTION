@@ -15,5 +15,10 @@ URL: https://github.com/openwashdata/glaas
 BugReports: https://github.com/openwashdata/glaas/issues
 Date: 2026-02-05
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
