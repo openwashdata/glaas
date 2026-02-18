@@ -2,9 +2,9 @@ Package: glaas
 Title: Complete Data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)
 Version: 0.0.0.9000
 Authors@R: c(
-  person("Nicolò", "Massari", email = "nmassari@ethz.ch", role = c("cre", "aut"), 
+  person("Nicolò", "Massari", email = "nmassari@ethz.ch", role = "aut",
          comment = c(ORCID = "0009-0006-8421-930X")),
-  person("Colin", "Walder", email = "cwalder@ethz.ch", role = "aut", 
+  person("Colin", "Walder", email = "cwalder@ethz.ch", role = c("cre", "aut"),
          comment = c(ORCID = "0009-0006-0969-1954")),
   person("Lars", "Schöbitz", email = "lschoebitz@ethz.ch", role = "ctb", 
          comment = c(ORCID = "0000-0003-2196-5015"))

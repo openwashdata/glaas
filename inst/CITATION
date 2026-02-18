@@ -3,26 +3,43 @@ bibentry(
   title = "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)",
   author = c(
     person(
+      given = "Colin",
+      family = "Walder",
+      email = "cwalder@ethz.ch",
+      role = c("cre", "aut"),
+      comment = c(ORCID = "0009-0006-0969-1954")
+    ),
+    person(
       given = "Nicolò",
       family = "Massari",
       email = "nmassari@ethz.ch",
       role = "aut",
       comment = c(ORCID = "0009-0006-8421-930X")
-    ),
-    person(
-      given = "Colin",
-      family = "Walder",
-      email = "cwalder@ethz.ch",
-      role = "aut",
-      comment = c(ORCID = "0009-0006-0969-1954")
     )
   ),
   year = "2026",
   note = "R package version 0.0.0.9000",
   url = "https://github.com/openwashdata/glaas",
   textVersion = paste(
-    "Massari N, Walder C (2026).",
+    "Walder C, Massari N (2026).",
     "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).",
     "R package version 0.0.0.9000, https://github.com/openwashdata/glaas."
+  )
+)
+
+bibentry(
+  bibtype = "Misc",
+  title = "UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles",
+  author = c(
+    person("World Health Organization", role = "aut"),
+    person("United Nations Children's Fund", role = "aut")
+  ),
+  year = "2026",
+  note = "Data set",
+  url = "https://glaas.who.int/",
+  textVersion = paste(
+    "World Health Organization (WHO) & United Nations Children's Fund (UNICEF). (2026).",
+    "UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS) Dataset,",
+    "2013/2014-2024/2025 cycles [Data set]. GLAAS Data Portal. https://glaas.who.int/"
   )
 )

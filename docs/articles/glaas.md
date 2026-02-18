@@ -137,7 +137,7 @@ ggplot(worker_rights, aes(x = measure, y = pct, fill = dimension1_value_name)) +
     x = NULL,
     y = NULL,
     fill = NULL,
-    caption = "Source: GLAAS 2024/2025 country survey."
+    caption = "Source: GLAAS country surveys (WHO/UNICEF)"
   ) +
   theme_minimal(base_size = 11) +
   theme(
@@ -267,7 +267,7 @@ ggplot(financing_plans, aes(x = pct, y = category_label, fill = status)) +
     x = "Percentage of participating countries",
     y = NULL,
     fill = NULL,
-    caption = "Source: GLAAS 2024/2025 country survey."
+    caption = "Source: GLAAS country surveys (WHO/UNICEF)"
   ) +
   theme_minimal(base_size = 11) +
   theme(

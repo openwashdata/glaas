@@ -52,7 +52,7 @@ glaas |>
     subtitle = "Number of countries participating in each survey cycle",
     x = "",
     y = "Number of Countries",
-    caption = "Source: WHO GLAAS"
+    caption = "Source: GLAAS country surveys (WHO/UNICEF)"
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -88,7 +88,7 @@ glaas |>
     subtitle = "Distribution of participating countries across income groups",
     x = "",
     y = "Number of Countries",
-    caption = "Source: WHO GLAAS"
+    caption = "Source: GLAAS country surveys (WHO/UNICEF)"
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -122,7 +122,7 @@ glaas |>
     subtitle = "Number of participating countries by UNICEF reporting region",
     x = "",
     y = "Number of Countries",
-    caption = "Source: WHO GLAAS"
+    caption = "Source: GLAAS country surveys (WHO/UNICEF)"
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -158,7 +158,7 @@ glaas |>
     subtitle = "Number of indicators tracked per thematic area across survey cycles",
     x = "",
     y = "Number of Indicators",
-    caption = "Source: WHO GLAAS"
+    caption = "Source: GLAAS country surveys (WHO/UNICEF)"
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -198,9 +198,16 @@ When contributing, please:
 If you use this package in your research or publications, please cite it
 as follows:
 
-    Massari N, Walder C (2026).
+    Walder C, Massari N (2026).
     glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).
     R package version 0.0.0.9000, https://github.com/openwashdata/glaas.
+
+As this package provides access to the GLAAS dataset, please also cite
+the underlying data:
+
+    World Health Organization (WHO) & United Nations Children's Fund (UNICEF). (2026).
+    UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS) Dataset,
+    2013/2014–2024/2025 cycles [Data set]. GLAAS Data Portal. https://glaas.who.int/
 
 ## License
 
