@@ -1,7 +1,3 @@
----
-render_with_liquid: false
----
-
 # Authors and Citation
 
 ## Authors
@@ -36,6 +32,7 @@ World Health Organization (WHO) & United Nations Children's Fund
 and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles \[Data
 set\]. GLAAS Data Portal. https://glaas.who.int/
 
+{% raw %}
     @Misc{,
       title = {UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles},
       author = {{World Health Organization} and {United Nations Children's Fund}},
@@ -43,3 +40,4 @@ set\]. GLAAS Data Portal. https://glaas.who.int/
       note = {Data set},
       url = {https://glaas.who.int/},
     }
+{% endraw %}
