@@ -6,11 +6,13 @@ Authors@R: c(
          comment = c(ORCID = "0009-0006-8421-930X")),
   person("Colin", "Walder", email = "cwalder@ethz.ch", role = c("cre", "aut"),
          comment = c(ORCID = "0009-0006-0969-1954")),
-  person("Lars", "Schöbitz", email = "lschoebitz@ethz.ch", role = "ctb", 
+  person("Adriana", "Clavijo Daza", email = "aclavijo@ethz.ch", role = c("cre", "aut"),
+         comment = c(ORCID = "0009-0002-0589-2274")),
+  person("Lars", "Schöbitz", email = "lschoebitz@ethz.ch", role = "ctb",
          comment = c(ORCID = "0000-0003-2196-5015"))
     )
 Description: An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide.
-License: CC-BY-4.0
+License: CC BY 4.0
 URL: https://openwashdata.github.io/glaas, https://github.com/openwashdata/glaas
 BugReports: https://github.com/openwashdata/glaas/issues
 Date: 2026-02-05

@@ -3,11 +3,11 @@ bibentry(
   title = "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)",
   author = c(
     person(
-      given = "Colin",
-      family = "Walder",
-      email = "cwalder@ethz.ch",
+      given = "Adriana",
+      family = "Clavijo Daza",
+      email = "aclavijo@ethz.ch",
       role = c("cre", "aut"),
-      comment = c(ORCID = "0009-0006-0969-1954")
+      comment = c(ORCID = "0009-0002-0589-2274")
     ),
     person(
       given = "Nicolò",
@@ -15,13 +15,20 @@ bibentry(
       email = "nmassari@ethz.ch",
       role = "aut",
       comment = c(ORCID = "0009-0006-8421-930X")
+    ),
+    person(
+      given = "Colin",
+      family = "Walder",
+      email = "cwalder@ethz.ch",
+      role = c("cre", "aut"),
+      comment = c(ORCID = "0009-0006-0969-1954")
     )
   ),
   year = "2026",
   note = "R package version 0.0.0.9000",
   url = "https://github.com/openwashdata/glaas",
   textVersion = paste(
-    "Walder C, Massari N (2026).",
+    "Clavijo Daza A, Massari N, Walder C (2026).",
     "glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).",
     "R package version 0.0.0.9000, https://github.com/openwashdata/glaas."
   )
