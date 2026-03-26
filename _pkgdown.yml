@@ -23,5 +23,4 @@ authors:
     text: "Crafted by"
   sidebar:
     roles: [cre, aut, ctb]
-    before: "So *who* does the work?"
-    after: "Thanks all!"
+    before: "Brought to you by [openwashdata](https://openwashdata.org/)"

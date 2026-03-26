@@ -21,6 +21,7 @@ survey cycles.
 You can install `glaas` from GitHub:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("openwashdata/glaas")
 ```
@@ -34,11 +35,13 @@ devtools::install_github("openwashdata/glaas")
 ## Usage Examples
 
 ``` r
+
 library(glaas)
 library(tidyverse)
 ```
 
 ``` r
+
 # Survey participation over time
 glaas |>
   group_by(time_period) |>
@@ -66,6 +69,7 @@ glaas |>
 2024](reference/figures/README-example-1.png)
 
 ``` r
+
 
 # Participation by World Bank income group
 glaas |>
@@ -106,6 +110,7 @@ classification](reference/figures/README-example-2.png)
 
 ``` r
 
+
 # Participation by UNICEF region
 glaas |>
   filter(!is.na(region_unicef_reporting_name)) |>
@@ -140,6 +145,7 @@ glaas |>
 region](reference/figures/README-example-3.png)
 
 ``` r
+
 
 # Thematic coverage
 glaas |>

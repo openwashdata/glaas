@@ -5,6 +5,7 @@
 You can install `glaas` from GitHub:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("openwashdata/glaas")
 ```
@@ -12,6 +13,7 @@ devtools::install_github("openwashdata/glaas")
 ## Loading the data
 
 ``` r
+
 library(glaas)
 library(dplyr)
 library(tidyr)
@@ -52,6 +54,7 @@ For a complete description of all variables, see
 [`?glaas`](https://openwashdata.github.io/glaas/reference/glaas.md).
 
 ``` r
+
 # Survey cycles available
 sort(unique(glaas$time_period))
 #> [1] 2013 2016 2018 2021 2024
@@ -75,6 +78,7 @@ showing the percentage of countries with measures fully in place for the
 rights of drinking-water and sanitation workers.
 
 ``` r
+
 # Filter for worker rights indicators from 2024 survey
 worker_rights <- glaas |>
   filter(
@@ -172,6 +176,7 @@ showing the existence and status of WASH financing plans/strategies
 across different service areas.
 
 ``` r
+
 # Filter for financing plan status indicator from 2024 survey
 financing_plans <- glaas |>
   filter(
@@ -300,6 +305,7 @@ surveys over time. Darker colors indicate participation in more survey
 cycles.
 
 ``` r
+
 # Get world map
 world <- ne_countries(scale = "medium", returnclass = "sf") |>
   select(iso_a3, geometry)
@@ -353,6 +359,7 @@ This map visualizes the sufficiency of funding to reach national
 drinking-water targets, based on the 2024 GLAAS survey.
 
 ``` r
+
 # Get funding sufficiency data for drinking-water
 funding <- glaas |>
   filter(
@@ -416,6 +423,7 @@ drinking-water services. Do countries with more developed financing
 plans tend to have better funding coverage?
 
 ``` r
+
 # Get financing plan status and funding sufficiency per country
 cross_indicators <- glaas |>
   filter(

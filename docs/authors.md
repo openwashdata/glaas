@@ -4,8 +4,10 @@
 
 - **Nicolò Massari**. Author. [](https://orcid.org/0009-0006-8421-930X)
 
-- **Colin Walder**. Maintainer, author.
-  [](https://orcid.org/0009-0006-0969-1954)
+- **Colin Walder**. Author. [](https://orcid.org/0009-0006-0969-1954)
+
+- **Adriana Clavijo Daza**. Maintainer, author.
+  [](https://orcid.org/0009-0002-0589-2274)
 
 - **Lars Schöbitz**. Contributor.
   [](https://orcid.org/0000-0003-2196-5015)
@@ -15,13 +17,14 @@
 Source:
 [`inst/CITATION`](https://github.com/openwashdata/glaas/blob/HEAD/inst/CITATION)
 
-Walder C, Massari N (2026). glaas: Complete data from the Global
-Analysis and Assessment of Sanitation and Drinking-Water (GLAAS). R
-package version 0.0.0.9000, https://github.com/openwashdata/glaas.
+Clavijo Daza A, Massari N, Walder C (2026). glaas: Complete data from
+the Global Analysis and Assessment of Sanitation and Drinking-Water
+(GLAAS). R package version 0.0.0.9000,
+https://github.com/openwashdata/glaas.
 
     @Manual{,
       title = {glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)},
-      author = {Colin Walder and Nicolò Massari},
+      author = {Adriana {Clavijo Daza} and Nicolò Massari and Colin Walder},
       year = {2026},
       note = {R package version 0.0.0.9000},
       url = {https://github.com/openwashdata/glaas},
@@ -32,7 +35,6 @@ World Health Organization (WHO) & United Nations Children's Fund
 and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles \[Data
 set\]. GLAAS Data Portal. https://glaas.who.int/
 
-{% raw %}
     @Misc{,
       title = {UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles},
       author = {{World Health Organization} and {United Nations Children's Fund}},
@@ -40,4 +42,3 @@ set\]. GLAAS Data Portal. https://glaas.who.int/
       note = {Data set},
       url = {https://glaas.who.int/},
     }
-{% endraw %}
