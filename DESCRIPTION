@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: c(
   person("Nicolò", "Massari", email = "nmassari@ethz.ch", role = "aut",
          comment = c(ORCID = "0009-0006-8421-930X")),
-  person("Colin", "Walder", email = "cwalder@ethz.ch", role = c("cre", "aut"),
+  person("Colin", "Walder", email = "cwalder@ethz.ch", role = "aut",
          comment = c(ORCID = "0009-0006-0969-1954")),
   person("Adriana", "Clavijo Daza", email = "aclavijo@ethz.ch", role = c("cre", "aut"),
          comment = c(ORCID = "0009-0002-0589-2274")),

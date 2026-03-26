@@ -20,7 +20,7 @@ bibentry(
       given = "Colin",
       family = "Walder",
       email = "cwalder@ethz.ch",
-      role = c("cre", "aut"),
+      role = "aut",
       comment = c(ORCID = "0009-0006-0969-1954")
     )
   ),

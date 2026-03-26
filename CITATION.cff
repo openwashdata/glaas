@@ -51,10 +51,6 @@ repository-code: https://github.com/openwashdata/glaas
 url: https://openwashdata.github.io/glaas
 date-released: '2026-02-05'
 contact:
-- family-names: Walder
-  given-names: Colin
-  email: cwalder@ethz.ch
-  orcid: https://orcid.org/0009-0006-0969-1954
 - family-names: Clavijo Daza
   given-names: Adriana
   email: aclavijo@ethz.ch
