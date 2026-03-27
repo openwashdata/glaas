@@ -9,7 +9,7 @@ type: software
 license: CC-BY-4.0
 title: 'glaas: Complete Data from the Global Analysis and Assessment of Sanitation
   and Drinking-Water (GLAAS)'
-version: 0.0.0.9000
+version: 0.2.0
 abstract: An R data package providing comprehensive access to the UN-Water Global
   Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO
   GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies,
@@ -45,7 +45,7 @@ preferred-citation:
     email: cwalder@ethz.ch
     orcid: https://orcid.org/0009-0006-0969-1954
   year: '2026'
-  notes: R package version 0.0.0.9000
+  notes: R package version 0.2.0
   url: https://github.com/openwashdata/glaas
 repository-code: https://github.com/openwashdata/glaas
 url: https://openwashdata.github.io/glaas
@@ -208,6 +208,26 @@ references:
     email: southandy@gmail.com
   year: '2026'
   doi: 10.32614/CRAN.package.rnaturalearth
+- type: software
+  title: rnaturalearthdata
+  abstract: 'rnaturalearthdata: World Vector Map Data from Natural Earth Used in ''rnaturalearth'''
+  notes: Suggests
+  url: https://docs.ropensci.org/rnaturalearthdata/
+  repository: https://CRAN.R-project.org/package=rnaturalearthdata
+  authors:
+  - family-names: South
+    given-names: Andy
+    email: southandy@gmail.com
+    orcid: https://orcid.org/0000-0003-4051-6135
+  - family-names: Michael
+    given-names: Schramm
+    email: mpschramm@gmail.com
+  - family-names: Massicotte
+    given-names: Philippe
+    email: pmassicotte@hotmail.com
+    orcid: https://orcid.org/0000-0002-5919-4116
+  year: '2026'
+  doi: 10.32614/CRAN.package.rnaturalearthdata
 - type: software
   title: sf
   abstract: 'sf: Simple Features for R'

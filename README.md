@@ -198,9 +198,9 @@ When contributing, please:
 If you use this package in your research or publications, please cite it
 as follows:
 
-    Walder C, Massari N (2026).
+    Clavijo Daza A, Massari N, Walder C (2026).
     glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).
-    R package version 0.0.0.9000, https://github.com/openwashdata/glaas.
+    R package version 0.2.0, https://github.com/openwashdata/glaas.
 
 As this package provides access to the GLAAS dataset, please also cite
 the underlying data:

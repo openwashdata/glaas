@@ -25,7 +25,7 @@ library(sf)
 
 ### A note on lazy loading
 
-The full dataset is available directly after loading the `glass`. No
+The full dataset is available directly after loading the `glaas`. No
 need to call `data("glaas")`! This package uses [lazy
 loading](https://journal.r-project.org/articles/RN-2004-009/RN-2004-009.pdf),
 which means the dataset is only loaded into memory when you actually use
