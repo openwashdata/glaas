@@ -3,92 +3,129 @@
 #' The complete dataset from the UN-Water Global Analysis and Assessment of
 #' Sanitation and Drinking-water (GLAAS).
 #'
-#' @format ## `glaas`
-#' A data frame with 259313 rows and 121 variables:
+#' @format A tibble with 259313 rows and 121 variables
 #' \describe{
-#'   \item{feature_id}{Unique feature identifier (FID) from the WHO xMart system}
-#'   \item{language}{Language of the record (e.g., "EN")}
-#'   \item{parent_location_type}{Category of the parent region (e.g., WHO Region)}
-#'   \item{parent_location_type_name}{Descriptive name of the parent location type}
-#'   \item{parent_loc_type_seq}{Sequence order for the parent location type}
-#'   \item{parent_location_code}{ISO or regional code for the parent location}
-#'   \item{parent_location_name}{Name of the parent region (e.g., Eastern Mediterranean Region)}
-#'   \item{parent_loc_seq}{Sequence order for the parent location}
-#'   \item{region_sdg_code}{SDG region code}
-#'   \item{region_sdg_name}{SDG region name}
-#'   \item{parent_loc_seq_sdg}{Sequence order for SDG regions}
-#'   \item{region_world_bank_code}{World Bank income group code}
-#'   \item{region_world_bank_name}{World Bank income group name}
-#'   \item{parent_loc_seq_wbig}{Sequence order for World Bank income groups}
-#'   \item{region_unicef_reporting_code}{UNICEF reporting region code}
-#'   \item{region_unicef_reporting_name}{UNICEF reporting region name}
-#'   \item{parent_loc_seq_unice_frept}{Sequence order for UNICEF reporting regions}
-#'   \item{region_unicef_program_code}{UNICEF program region code}
-#'   \item{region_unicef_program_name}{UNICEF program region name}
-#'   \item{parent_loc_seq_unice_fprgm}{Sequence order for UNICEF program regions}
-#'   \item{grand_parent}{Top-level thematic area code (e.g., FINANCE)}
-#'   \item{grand_parent_text}{Top-level thematic area name}
-#'   \item{grand_parent_seq}{Sequence order for thematic areas}
-#'   \item{parent}{Sub-thematic area code (e.g., DOMABS for Domestic Absorption)}
-#'   \item{parent_text}{Sub-thematic area name}
-#'   \item{parent_seq}{Sequence order for sub-thematic areas}
-#'   \item{indicator_code}{Unique code for the WASH indicator}
-#'   \item{indicator_prefix}{Indicator prefix used in reports (e.g., FIN08)}
-#'   \item{indicator_name}{Full descriptive name of the indicator}
-#'   \item{indicator_name_highlight}{Shortened highlight name of the indicator}
-#'   \item{ind_seq}{Sequence order for indicators}
-#'   \item{country_type}{Type of location (e.g., Member State)}
-#'   \item{country_type_name}{Descriptive name for the location type}
-#'   \item{loc_type_seq}{Sequence order for location types}
-#'   \item{country_code}{ISO 3-digit country code (e.g., "PAK")}
-#'   \item{country_name}{Name of the country or territory}
-#'   \item{loc_seq}{Sequence order for locations}
-#'   \item{time_type}{Type of time period (e.g., YEAR)}
-#'   \item{time_type_name}{Descriptive name for the time type}
-#'   \item{time_type_seq}{Sequence order for time types}
-#'   \item{time_period}{The year or period of data collection}
-#'   \item{time_seq}{Sequence order for time periods}
-#'   \item{data_year}{The specific year the data represents}
-#'   \item{published}{Boolean indicating if the data is officially published}
-#'   \item{status}{Current status of the data record}
-#'   \item{published_country_highlights}{Indicates if country highlights are published}
-#'   \item{is_comparable}{Boolean indicating if data is comparable across cycles}
-#'   \item{is_comparable_2013, is_comparable_2016, is_comparable_2018, is_comparable_2021, is_comparable_2024}{Comparability flags for specific GLAAS cycles}
-#'   \item{is_latest}{Boolean indicating if this is the most recent data point for the indicator}
-#'   \item{dimension1_type}{First disaggregation dimension type (e.g., SERVICES)}
-#'   \item{dimension1_type_name}{Name of the first dimension type}
-#'   \item{dim1type_seq}{Sequence for dimension 1 type}
-#'   \item{dimension1_value}{Value code for dimension 1 (e.g., WATER_DRNK)}
-#'   \item{dimension1_value_name}{Value name for dimension 1 (e.g., Drinking-water)}
-#'   \item{dim1val_seq}{Sequence for dimension 1 value}
-#'   \item{dimension2_type}{Second disaggregation dimension type (e.g., SETTINGS)}
-#'   \item{dimension2_type_name}{Name of the second dimension type}
-#'   \item{dim2type_seq}{Sequence for dimension 2 type}
-#'   \item{dimension2_value}{Value code for dimension 2 (e.g., URB for Urban)}
-#'   \item{dimension2_value_name}{Value name for dimension 2}
-#'   \item{dim2val_seq}{Sequence for dimension 2 value}
-#'   \item{dimension3_type, dimension4_type, dimension5_type, dimension6_type}{Additional disaggregation dimension types}
-#'   \item{dimension3_value, dimension4_value, dimension5_value, dimension6_value}{Additional disaggregation dimension values}
-#'   \item{value_code_numeric}{The numeric value of the indicator}
-#'   \item{value_code}{The categorical code for the value (if applicable)}
-#'   \item{value_amount}{The absolute amount (for financial indicators)}
-#'   \item{value_text}{The text representation of the value (e.g., "More than 75%")}
-#'   \item{val_seq}{Sequence order for the value}
-#'   \item{data_type}{Type of data (e.g., Text, Numeric)}
-#'   \item{unit_of_measure}{Units for the value (e.g., %, USD)}
-#'   \item{hex_color}{Color code used for data visualizations}
-#'   \item{country_highlights}{Summary text for country highlights}
-#'   \item{survey_round}{The GLAAS survey cycle/round}
-#'   \item{comment1_type, comment2_type, comment3_type}{Types of qualitative comments provided}
-#'   \item{comment1, comment2, comment3}{Actual qualitative remarks or notes}
-#'   \item{record_id}{Unique internal record ID}
-#'   \item{sys_primary_key}{System-level primary key}
-#'   \item{sys_row_title}{System-generated title for the row}
-#'   \item{sys_version, sys_version_id}{Version tracking information}
-#'   \item{sys_origin_code}{Code for the data origin/source system}
-#'   \item{sys_loaded_by, sys_first_loaded_by}{User or process that loaded the data}
-#'   \item{sys_commit_date, sys_first_commit_date}{Timestamps for when data was committed to the database}
-#'   \item{sys_id, sys_batch_id, sys_first_batch_id}{Internal system identifiers and batch processing IDs}
+#'   \item{feature_id}{Numeric identifier of the record in the WHO source table (source column FID). It is not unique: the 259,313 rows hold 258,818 distinct values.}
+#'   \item{language}{Language of the text columns. Every row holds "EN" for English.}
+#'   \item{parent_location_type}{Type of the region that the country is grouped under. Every row holds "WHO Region".}
+#'   \item{parent_location_type_name}{Display name of the region type. Every row holds "WHO Region".}
+#'   \item{parent_loc_type_seq}{Sort order number from the WHO source table (source column ParentLocTypeSeq). In this dataset it holds the same value as parent_loc_seq, 1 to 6.}
+#'   \item{parent_location_code}{Code of the WHO region of the country: AFR, AMR, EMR, EUR, SEAR or WPR.}
+#'   \item{parent_location_name}{Name of the WHO region of the country, for example "African Region".}
+#'   \item{parent_loc_seq}{Sort order number of the WHO region, 1 to 6.}
+#'   \item{region_sdg_code}{Code of the Sustainable Development Goal (SDG) region of the country, for example "SDG_SSA".}
+#'   \item{region_sdg_name}{Name of the SDG region of the country, for example "Sub-Saharan Africa".}
+#'   \item{parent_loc_seq_sdg}{Sort order number of the SDG region.}
+#'   \item{region_world_bank_code}{Code of the World Bank income group of the country: LIC, LMC, UMC or HIC. Missing for Anguilla, Cook Islands and Venezuela (Bolivarian Republic of).}
+#'   \item{region_world_bank_name}{Name of the World Bank income group of the country: "Low income", "Lower middle income", "Upper middle income" or "High income".}
+#'   \item{parent_loc_seq_wbig}{Sort order number of the World Bank income group, from 1 for low income to 4 for high income.}
+#'   \item{region_unicef_reporting_code}{Code of the UNICEF reporting region of the country, for example "SSA".}
+#'   \item{region_unicef_reporting_name}{Name of the UNICEF reporting region of the country, for example "Sub-Saharan Africa".}
+#'   \item{parent_loc_seq_unice_frept}{Sort order number from the WHO source table (source column ParentLocSeq_UNICEFrept). In this dataset it holds the same value as loc_seq, one number per country.}
+#'   \item{region_unicef_program_code}{Code of the UNICEF programme region of the country, for example "ESA". Missing for 12 countries.}
+#'   \item{region_unicef_program_name}{Name of the UNICEF programme region of the country, for example "Eastern and Southern Africa". Missing for 12 countries.}
+#'   \item{parent_loc_seq_unice_fprgm}{Sort order number from the WHO source table (source column ParentLocSeq_UNICEFprgm). In this dataset it holds the same value as loc_seq, one number per country.}
+#'   \item{grand_parent}{Code of the thematic area of the indicator: EQUITY, FINANCE, GOV, HUMRES or MONITOR.}
+#'   \item{grand_parent_text}{Name of the thematic area of the indicator: "Equity", "Finance", "Governance", "Human resources" or "Monitoring".}
+#'   \item{grand_parent_seq}{Sort order number of the thematic area, 1 to 5.}
+#'   \item{parent}{Code of the topic that the indicator belongs to within its thematic area, for example "BUDGET".}
+#'   \item{parent_text}{Name of the topic that the indicator belongs to, for example "Budgets".}
+#'   \item{parent_seq}{Sort order number of the topic within its thematic area.}
+#'   \item{indicator_code}{Code of the indicator, for example "ABSORB_DOM". The dataset holds 333 indicators.}
+#'   \item{indicator_prefix}{Reference label of the indicator, written in square brackets, for example FIN08 for a finance indicator.}
+#'   \item{indicator_name}{Full name of the indicator, starting with its reference label.}
+#'   \item{indicator_name_highlight}{Name of the indicator without the reference label (source column IndText_HL). For some indicators the wording is shorter than in indicator_name.}
+#'   \item{ind_seq}{Sort order number of the indicator.}
+#'   \item{country_type}{Type of the location: "Member State" or "Territory or Area".}
+#'   \item{country_type_name}{Display name of the location type: "Countries, territories and areas" or "Territory or Area".}
+#'   \item{loc_type_seq}{Sort order number of the location type: 4 for Member State, 6 for Territory or Area.}
+#'   \item{country_code}{Three letter ISO 3166-1 code of the country, territory or area, for example "AFG".}
+#'   \item{country_name}{Name of the country, territory or area. The dataset holds 151 of them.}
+#'   \item{loc_seq}{Sort order number of the country, territory or area.}
+#'   \item{time_type}{Type of the time period. Every row holds "YEAR".}
+#'   \item{time_type_name}{Display name of the type of time period. Every row holds "Year".}
+#'   \item{time_type_seq}{Sort order number of the type of time period. Every row holds 1.}
+#'   \item{time_period}{Year that names the GLAAS survey cycle the record comes from: 2013, 2016, 2018, 2021 or 2024.}
+#'   \item{time_seq}{Sort order number of the survey cycle. Newer cycles have lower numbers, from 17 for 2024 to 28 for 2013.}
+#'   \item{data_year}{Year that the value refers to. It equals time_period in most rows and differs where a country gave another year, such as a baseline year, a target year or a financial year (1987 to 2050).}
+#'   \item{published}{Whether the record is published. Every row holds TRUE.}
+#'   \item{status}{Status of the record in the WHO source table. Empty in every row.}
+#'   \item{published_country_highlights}{Flag from the WHO source table (source column Published_CH). The name suggests that it marks whether the record is published in the GLAAS country highlights.}
+#'   \item{is_comparable}{General comparability flag from the WHO source table. Empty in every row.}
+#'   \item{is_comparable_2013}{Flag from the WHO source table (source column IsComparable_2013). The name suggests that it marks whether the record can be compared with the 2013 survey cycle.}
+#'   \item{is_comparable_2016}{Flag from the WHO source table (source column IsComparable_2016). The name suggests that it marks whether the record can be compared with the 2016 survey cycle.}
+#'   \item{is_comparable_2018}{Flag from the WHO source table (source column IsComparable_2018). The name suggests that it marks whether the record can be compared with the 2018 survey cycle.}
+#'   \item{is_comparable_2021}{Flag from the WHO source table (source column IsComparable_2021). The name suggests that it marks whether the record can be compared with the 2021 survey cycle.}
+#'   \item{is_comparable_2024}{Flag from the WHO source table (source column IsComparable_2024). The name suggests that it marks whether the record can be compared with the 2024 survey cycle.}
+#'   \item{is_latest}{TRUE for the record from the most recent survey cycle in which the country has a value for this indicator and this combination of dimensions.}
+#'   \item{dimension1_type}{Code of the first breakdown of the indicator. Every row holds "SERVICES".}
+#'   \item{dimension1_type_name}{Name of the first breakdown of the indicator. Every row holds "Service".}
+#'   \item{dim1type_seq}{Sort order number of the type of the first breakdown. Every row holds 3.}
+#'   \item{dimension1_value}{Code of the service that the record refers to, for example "SAN", "WATER_DRNK", "HYG" or "WASH".}
+#'   \item{dimension1_value_name}{Name of the service that the record refers to, for example "Sanitation", "Drinking-water", "Hygiene" or "WASH".}
+#'   \item{dim1val_seq}{Sort order number of the service.}
+#'   \item{dimension2_type}{Code of the second breakdown of the indicator: "SETTINGS" or "SUBSERVICES".}
+#'   \item{dimension2_type_name}{Name of the second breakdown of the indicator: "Setting" or "Sub-service".}
+#'   \item{dim2type_seq}{Sort order number of the type of the second breakdown: 2 for Setting, 4 for Sub-service.}
+#'   \item{dimension2_value}{Code of the setting or sub-service that the record refers to, for example "RUR", "URB" or "NAT".}
+#'   \item{dimension2_value_name}{Name of the setting or sub-service that the record refers to, for example "Rural", "Urban" or "National*". The GLAAS data portal notes that "national" refers to countries, territories and areas.}
+#'   \item{dim2val_seq}{Sort order number of the setting or sub-service. Missing in 105 rows.}
+#'   \item{dimension3_type}{Code of the third breakdown of the indicator, for example "SETTINGS", "ACTIONS" or "DOCUMENTS". Missing where the record has no third breakdown.}
+#'   \item{dimension3_type_name}{Name of the third breakdown of the indicator, for example "Setting", "Actions" or "Document". Missing where the record has no third breakdown.}
+#'   \item{dim3type_seq}{Sort order number of the type of the third breakdown.}
+#'   \item{dimension3_value}{Code of the category of the third breakdown that the record refers to, for example "NAT".}
+#'   \item{dimension3_value_name}{Name of the category of the third breakdown that the record refers to, for example "National*".}
+#'   \item{dim3val_seq}{Sort order number of the category of the third breakdown.}
+#'   \item{dimension4_type}{Code of the fourth breakdown of the indicator: "ACTIONS", "DETAIL" or "DOCUMENTS". Missing where the record has no fourth breakdown.}
+#'   \item{dimension4_type_name}{Name of the fourth breakdown of the indicator: "Actions", "Details" or "Document". Missing where the record has no fourth breakdown.}
+#'   \item{dim4type_seq}{Sort order number of the type of the fourth breakdown.}
+#'   \item{dimension4_value}{Code of the category of the fourth breakdown that the record refers to, for example "STDS_REGS".}
+#'   \item{dimension4_value_name}{Name of the category of the fourth breakdown that the record refers to, for example "Standards or regulations".}
+#'   \item{dim4val_seq}{Sort order number of the category of the fourth breakdown.}
+#'   \item{dimension5_type}{Code of the fifth breakdown of the indicator: "DETAIL" or "ACTIONS". Missing where the record has no fifth breakdown.}
+#'   \item{dimension5_type_name}{Name of the fifth breakdown of the indicator: "Details" or "Actions". Missing where the record has no fifth breakdown.}
+#'   \item{dim5type_seq}{Sort order number of the type of the fifth breakdown.}
+#'   \item{dimension5_value}{Code of the category of the fifth breakdown that the record refers to, for example "SUFFIC".}
+#'   \item{dimension5_value_name}{Name of the category of the fifth breakdown that the record refers to, for example "Sufficiency".}
+#'   \item{dim5val_seq}{Sort order number of the category of the fifth breakdown.}
+#'   \item{dimension6_type}{Code of the sixth breakdown of the indicator. It holds "DETAIL" in 345 rows and is missing in all others.}
+#'   \item{dimension6_type_name}{Name of the sixth breakdown of the indicator. It holds "Details" in 345 rows and is missing in all others.}
+#'   \item{dim6type_seq}{Sort order number of the type of the sixth breakdown. It holds 7 in 345 rows and is missing in all others.}
+#'   \item{dimension6_value}{Code of the category of the sixth breakdown. It holds "REQTS" in 345 rows and is missing in all others.}
+#'   \item{dimension6_value_name}{Name of the category of the sixth breakdown. It holds "Requirements" in 345 rows and is missing in all others.}
+#'   \item{dim6val_seq}{Sort order number of the category of the sixth breakdown. It holds 83 in 345 rows and is missing in all others.}
+#'   \item{value_code_numeric}{The value as a number (source column ValCodeNum). For records of data type "Decimal" it is the reported number. For records of data type "Text" it is a number given to the answer, for example 1 for "Yes" and 0 for "No", and it is missing for "No response" and "Not applicable".}
+#'   \item{value_code}{Code of the answer for records of data type "Text", for example "YES", "NO" or "NR" for no response. Missing for records of data type "Decimal".}
+#'   \item{value_amount}{The reported number for records of data type "Decimal", rounded to two decimal places, in the unit named in unit_of_measure. Missing for records of data type "Text".}
+#'   \item{value_text}{The value as text: the wording of the answer for records of data type "Text", and the number written as text for records of data type "Decimal".}
+#'   \item{val_seq}{Sort order number of the answer within the indicator. "No response" has the number 9 or 11. Missing for records of data type "Decimal".}
+#'   \item{data_type}{Type of the value: "Text" for an answer from a list of answers, "Decimal" for a number.}
+#'   \item{unit_of_measure}{Unit of the number in value_amount: "%", "US$" or "US$ millions". Missing for records of data type "Text" and for numbers without a unit, such as counts and years.}
+#'   \item{hex_color}{Hex colour code given to the answer in the WHO source table, for example "#F68620". Missing for records of data type "Decimal" and for 29 records of data type "Text".}
+#'   \item{country_highlights}{Country highlights field of the WHO source table. Empty in every row.}
+#'   \item{survey_round}{Survey field of the WHO source table. Empty in every row.}
+#'   \item{comment1_type}{Code for the kind of extra information in comment1, for example "BASE_YEAR", "FINANCIAL_YEAR" or "DESC". Missing where the record has no first comment.}
+#'   \item{comment1_type_name}{Name of the kind of extra information in comment1, for example "Baseline year", "Financial year" or "Description".}
+#'   \item{comment1}{First piece of extra information that the country gave with the value, stored as text in the language of the answer, for example a year, a description or the name of a ministry.}
+#'   \item{comment2_type}{Code for the kind of extra information in comment2, for example "YRAPPROVE", "TARGET_YEAR" or "POPULATION". Missing where the record has no second comment.}
+#'   \item{comment2_type_name}{Name of the kind of extra information in comment2, for example "Year approved", "Target year" or "Population (000s)". Missing for some codes.}
+#'   \item{comment2}{Second piece of extra information that goes with the value, stored as text, for example a year, a population figure or a reference.}
+#'   \item{comment3_type}{Code for the kind of extra information in comment3, for example "POLICY", "COST", "YEAR" or "GDP". Missing where the record has no third comment.}
+#'   \item{comment3_type_name}{Name of the kind of extra information in comment3, for example "Policy", "Cost", "Year" or "Gross domestic product (millions)". Missing for some codes.}
+#'   \item{comment3}{Third piece of extra information that goes with the value, stored as text, for example the name of a policy, a cost or a year.}
+#'   \item{record_id}{Unique identifier of the record in the WHO source table. It holds the same value as sys_id.}
+#'   \item{sys_primary_key}{Unique whole number key of the row in the WHO xMart database.}
+#'   \item{sys_row_title}{Row title field of the WHO xMart database. Every row holds "-".}
+#'   \item{sys_version}{Version number of the record in the WHO xMart database: 1 or 2.}
+#'   \item{sys_version_id}{Identifier of the record version: the record identifier in capital letters, a dot and the version number.}
+#'   \item{sys_origin_code}{Code of the process that wrote the record to the WHO xMart database: "SYS_DATA_LOAD" or "PIPE_PUBLISH_CH".}
+#'   \item{sys_loaded_by}{Field of the WHO xMart database for who loaded the record. Every row holds "-".}
+#'   \item{sys_commit_date}{Date and time in UTC when the current version of the record was written to the WHO xMart database, between 25 and 27 January 2026.}
+#'   \item{sys_first_loaded_by}{Field of the WHO xMart database for who first loaded the record. Every row holds "-".}
+#'   \item{sys_first_commit_date}{Date and time in UTC when the record was first written to the WHO xMart database, 25 or 26 January 2026.}
+#'   \item{sys_id}{Unique identifier of the record in the WHO xMart database. It holds the same value as record_id.}
+#'   \item{sys_batch_id}{Number of the load batch that wrote the current version of the record to the WHO xMart database.}
+#'   \item{sys_first_batch_id}{Number of the load batch that first wrote the record to the WHO xMart database.}
 #' }
 #' @source \url{https://glaas.who.int/}
 "glaas"
