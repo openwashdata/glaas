@@ -8,7 +8,7 @@ message: 'To cite package "glaas" in publications use:'
 type: dataset
 license: CC-BY-4.0
 title: 'glaas: UN-Water GLAAS Data on Drinking-Water, Sanitation and Hygiene'
-version: 0.2.0
+version: 0.3.0
 abstract: An R data package providing comprehensive access to the UN-Water Global
   Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO
   GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies,
@@ -32,7 +32,7 @@ authors:
   orcid: https://orcid.org/0000-0003-2196-5015
 repository-code: https://github.com/openwashdata/glaas
 url: https://openwashdata.github.io/glaas
-date-released: '2026-02-05'
+date-released: '2026-11-13'
 contact:
 - family-names: Schöbitz
   given-names: Lars

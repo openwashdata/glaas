@@ -1,6 +1,6 @@
 Package: glaas
 Title: UN-Water GLAAS Data on Drinking-Water, Sanitation and Hygiene
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
   person("Nicolò", "Massari", email = "nmassari@ethz.ch", role = "aut",
          comment = c(ORCID = "0009-0006-8421-930X")),
@@ -16,7 +16,7 @@ License: CC BY 4.0
 URL: https://openwashdata.github.io/glaas,
     https://github.com/openwashdata/glaas
 BugReports: https://github.com/openwashdata/glaas/issues
-Date: 2026-02-05
+Date: 2026-11-13
 Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
