@@ -1,0 +1,87 @@
+# Monthly check of the WHO source of the data.
+#
+# On the third day of each month at 06:17 UTC, this workflow asks the WHO data
+# platform for the row count and the newest load time of the GLAAS table, with
+# one small request. It compares both with data-raw/source-state.json, which
+# data-raw/data_processing.R writes at each pull. When they differ, it opens
+# one issue. It opens no second issue while that one is open.
+on:
+  schedule:
+    - cron: "17 6 3 * *"
+  workflow_dispatch:
+
+name: check-source.yaml
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Compare the source with the stored state
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="data-raw/source-state.json"
+          source_url=$(jq -r '.source' "$state")
+          stored_rows=$(jq -r '.rows' "$state")
+          stored_load=$(jq -r '.newest_load_utc' "$state")
+          pulled=$(jq -r '.pulled' "$state")
+
+          # One request: the newest load time and the row count.
+          response=$(curl --fail --silent --show-error --get --retry 3 \
+            --user-agent "glaas-source-check (https://github.com/openwashdata/glaas)" \
+            --data-urlencode '$top=1' \
+            --data-urlencode '$select=Sys_CommitDateUtc' \
+            --data-urlencode '$orderby=Sys_CommitDateUtc desc' \
+            --data-urlencode '$count=true' \
+            "$source_url")
+          rows=$(jq -r '."@odata.count"' <<<"$response")
+          load=$(jq -r '.value[0].Sys_CommitDateUtc' <<<"$response")
+          if [ -z "$rows" ] || [ "$rows" = "null" ] || [ -z "$load" ] || [ "$load" = "null" ]; then
+            echo "The source gave no row count or no load time." >&2
+            exit 1
+          fi
+
+          # Seconds between the two load times; the source writes local time
+          # with an offset, the state file UTC.
+          load_gap=$(python3 -c 'import sys
+          from datetime import datetime
+          a = datetime.fromisoformat(sys.argv[1].replace("Z", "+00:00"))
+          b = datetime.fromisoformat(sys.argv[2].replace("Z", "+00:00"))
+          print(int(abs((a - b).total_seconds())))' "$stored_load" "$load")
+
+          echo "Stored: $stored_rows rows, newest load $stored_load (pull of $pulled)."
+          echo "Source: $rows rows, newest load $load."
+          if [ "$rows" = "$stored_rows" ] && [ "$load_gap" -le 1 ]; then
+            echo "The source has not changed."
+            exit 0
+          fi
+
+          title="The WHO source of the GLAAS data has changed"
+          open_issues=$(gh issue list --state open --search "in:title \"$title\"" \
+            --json title --jq "[.[] | select(.title == \"$title\")] | length")
+          if [ "$open_issues" -gt 0 ]; then
+            echo "An issue on the change is open already. No new issue."
+            exit 0
+          fi
+
+          body=$(printf '%s\n' \
+            "The monthly check found that the WHO source of the data differs from the pull the package was built from." \
+            "" \
+            "| | Rows | Newest load time |" \
+            "|---|---|---|" \
+            "| Package (pull of $pulled) | $stored_rows | $stored_load |" \
+            "| Source today | $rows | $load |" \
+            "" \
+            "Source: $source_url" \
+            "" \
+            "To update the data, set \`snapshot_date\` in \`data-raw/data_processing.R\` to the day of the new pull, run the script, and follow the steps named at the top of the script. A data change needs a new version.")
+          gh issue create --title "$title" --body "$body"
