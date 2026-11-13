@@ -13,3 +13,4 @@
 ^_brand\.yml$
 ^logos$
 ^vignettes/articles$
+^\.zenodo\.json$
