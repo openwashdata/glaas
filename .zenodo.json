@@ -1,0 +1,42 @@
+{
+  "title": "UN-Water GLAAS Data on Drinking-Water, Sanitation and Hygiene",
+  "description": "<p>An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide.<\/p><p>Explore the data on a curated website: <a href=\"https://openwashdata.github.io/glaas/\">https://openwashdata.github.io/glaas/<\/a><\/p>",
+  "upload_type": "dataset",
+  "creators": [
+    {
+      "name": "Massari, Nicolò",
+      "orcid": "0009-0006-8421-930X"
+    },
+    {
+      "name": "Walder, Colin",
+      "orcid": "0009-0006-0969-1954"
+    },
+    {
+      "name": "Clavijo Daza, Adriana",
+      "orcid": "0009-0002-0589-2274"
+    },
+    {
+      "name": "Schöbitz, Lars",
+      "orcid": "0000-0003-2196-5015"
+    }
+  ],
+  "license": "cc-by-4.0",
+  "keywords": ["open data", "washdata", "GLAAS", "UN-Water", "WHO", "drinking-water", "sanitation", "hygiene", "WASH", "governance", "monitoring", "human resources", "finance", "global"],
+  "version": "0.3.0",
+  "communities": [
+    {
+      "identifier": "openwashdata"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/openwashdata/glaas",
+      "relation": "isSupplementTo"
+    },
+    {
+      "identifier": "https://openwashdata.github.io/glaas/",
+      "relation": "isDocumentedBy",
+      "resource_type": "other"
+    }
+  ]
+}

@@ -12,3 +12,5 @@
 ^\.github$
 ^_brand\.yml$
 ^logos$
+^vignettes/articles$
+^\.zenodo\.json$
