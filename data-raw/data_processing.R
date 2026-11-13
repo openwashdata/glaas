@@ -240,6 +240,10 @@ stopifnot(
     setequal(dictionary$variable_name, names(glaas))
 )
 
+# A load time as text in UTC with milliseconds, the precision of the source.
+# Half a millisecond is added because format() cuts off and does not round.
+utc_text <- function(x) format(x + 0.0005, "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
+
 # Source state -----------------------------------------------------------------
 # The row count and the newest load time of the source at the pull. The monthly
 # check in .github/workflows/check-source.yaml compares them with the source.
@@ -247,9 +251,7 @@ source_state <- list(
   source = source_url,
   pulled = snapshot_date,
   rows = nrow(glaas),
-  newest_load_utc = format(
-    max(glaas$sys_commit_date), "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC"
-  )
+  newest_load_utc = utc_text(max(glaas$sys_commit_date))
 )
 writeLines(
   jsonlite::toJSON(source_state, auto_unbox = TRUE, pretty = TRUE),
@@ -262,14 +264,13 @@ usethis::use_data(glaas, overwrite = TRUE, compress = "xz")
 # The CSV and XLSX files are too large for the repository (about 270 MB and
 # 110 MB). They are attached to the release. To write them, name a folder
 # outside the package in the environment variable GLAAS_EXPORT_DIR. The two
-# load times are written as text in UTC, so no digit is lost.
+# load times are written as text in UTC with milliseconds.
 export_dir <- Sys.getenv("GLAAS_EXPORT_DIR")
 if (nzchar(export_dir)) {
   fs::dir_create(export_dir)
   export <- glaas |>
     dplyr::mutate(dplyr::across(
-      c(sys_commit_date, sys_first_commit_date),
-      \(x) format(x, "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
+      c(sys_commit_date, sys_first_commit_date), utc_text
     ))
   readr::write_csv(export, fs::path(export_dir, "glaas.csv"))
   openxlsx::write.xlsx(export, fs::path(export_dir, "glaas.xlsx"))
