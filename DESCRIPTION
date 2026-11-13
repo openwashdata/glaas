@@ -1,5 +1,5 @@
 Package: glaas
-Title: Complete Data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)
+Title: UN-Water GLAAS Data on Drinking-Water, Sanitation and Hygiene
 Version: 0.2.0
 Authors@R: c(
   person("Nicolò", "Massari", email = "nmassari@ethz.ch", role = "aut",
@@ -44,7 +44,11 @@ Config/washr/publisher: Published by [openwashdata](https://openwashdata.org), a
 Config/washr/home: https://openwashdata.org
 Config/washr/catalog: https://openwashdata.org/pages/gallery/data/
 Config/washr/community: This package is part of [openwashdata](https://openwashdata.org). Browse the [data catalogue](https://openwashdata.org/pages/gallery/data/) or get the [newsletter](https://openwashdata.org/pages/newsletter/).
-Config/washr/version: 1.2.2
+Config/washr/version: 1.3.0
 Config/washr/brand: v1.1.0
 Depends: 
     R (>= 3.5)
+X-schema.org-keywords: open data, washdata, GLAAS, UN-Water, WHO, drinking-water, sanitation, hygiene, WASH, governance, monitoring, human resources, finance, global
+X-schema.org-spatialCoverage: Global
+X-schema.org-temporalCoverage: 2013-01-01/2025-12-31
+Config/washr/parent-organizations: Global Health Engineering <https://ghe.ethz.ch/>; Institute of Design, Materials and Fabrication <https://ror.org/03zqk4w67>; ETH Zurich <https://ror.org/05a28rw58>
