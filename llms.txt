@@ -1,9 +1,5 @@
 # glaas
 
-[![License: CC BY
-4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15497462.svg)](https://zenodo.org/doi/10.5281/zenodo.15497462)
-
 An R data package providing comprehensive access to the UN-Water Global
 Analysis and Assessment of Sanitation and Drinking-water (GLAAS)
 dataset. The WHO GLAAS survey collects data on water, sanitation, and
@@ -27,10 +23,22 @@ devtools::install_github("openwashdata/glaas")
 ```
 
 > **Note on package size:** Due to the large size of the dataset
-> (259,313 rows × 121 variables), this package is not available on CRAN.
+> (259,546 rows × 121 variables), this package is not available on CRAN.
 > However, the data uses **lazy loading**, which means the dataset is
 > only loaded into memory when you actually access it. This keeps the
 > package footprint small until you need the data.
+
+## Download
+
+The data are also available as a CSV and as an XLSX file, for use
+without R. The files are too large for the repository (about 270 MB and
+110 MB), so they are attached to each release on GitHub and archived
+with it on Zenodo.
+
+- [Download
+  CSV](https://github.com/openwashdata/glaas/releases/latest/download/glaas.csv)
+- [Download
+  XLSX](https://github.com/openwashdata/glaas/releases/latest/download/glaas.xlsx)
 
 ## Usage Examples
 
@@ -210,9 +218,9 @@ If you use this package in your research or publications, please cite it
 as follows:
 
 ``` R
-Clavijo Daza A, Massari N, Walder C (2026).
-glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS).
-R package version 0.2.0, https://github.com/openwashdata/glaas.
+Massari N, Walder C, Clavijo Daza A, Schöbitz L (2026). "glaas:
+UN-Water GLAAS Data on Drinking-Water, Sanitation and Hygiene."
+<https://openwashdata.github.io/glaas>.
 ```
 
 As this package provides access to the GLAAS dataset, please also cite

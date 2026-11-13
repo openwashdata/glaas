@@ -47,7 +47,7 @@ Assessment of Sanitation and Drinking-water survey, in short GLAAS.
 - Provides a public data portal with structured indicators so
   policymakers can access and use evidence on WASH systems performance.
 
-The dataset includes 259313 rows and 121 variables covering the survey
+The dataset includes 259546 rows and 121 variables covering the survey
 cycles from 2013-2024.
 
 For a complete description of all variables, see

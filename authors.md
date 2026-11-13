@@ -6,10 +6,10 @@
 
 - **Colin Walder**. Author. [](https://orcid.org/0009-0006-0969-1954)
 
-- **Adriana Clavijo Daza**. Maintainer, author.
+- **Adriana Clavijo Daza**. Author.
   [](https://orcid.org/0009-0002-0589-2274)
 
-- **Lars Schöbitz**. Contributor.
+- **Lars Schöbitz**. Maintainer, author.
   [](https://orcid.org/0000-0003-2196-5015)
 
 ## Citation
@@ -17,27 +17,16 @@
 Source:
 [`inst/CITATION`](https://github.com/openwashdata/glaas/blob/main/inst/CITATION)
 
-Clavijo Daza A, Massari N, Walder C (2026). glaas: Complete data from
-the Global Analysis and Assessment of Sanitation and Drinking-Water
-(GLAAS). R package version 0.2.0, https://github.com/openwashdata/glaas.
+Massari N, Walder C, Clavijo Daza A, Schöbitz L (2026). “glaas: UN-Water
+GLAAS Data on Drinking-Water, Sanitation and Hygiene.”
+<https://openwashdata.github.io/glaas>.
 
-    @Manual{,
-      title = {glaas: Complete data from the Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS)},
-      author = {Adriana {Clavijo Daza} and Nicolò Massari and Colin Walder},
+    @Misc{massari_etall:2026,
+      title = {glaas: UN-Water GLAAS Data on Drinking-Water, Sanitation and Hygiene},
+      author = {Nicolò Massari and Colin Walder and Adriana {Clavijo Daza} and Lars Schöbitz},
       year = {2026},
-      note = {R package version 0.2.0},
-      url = {https://github.com/openwashdata/glaas},
-    }
-
-World Health Organization (WHO) & United Nations Children's Fund
-(UNICEF). (2026). UN-Water Global Analysis and Assessment of Sanitation
-and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles \[Data
-set\]. GLAAS Data Portal. https://glaas.who.int/
-
-    @Misc{,
-      title = {UN-Water Global Analysis and Assessment of Sanitation and Drinking-Water (GLAAS) Dataset, 2013/2014-2024/2025 cycles},
-      author = {{World Health Organization} and {United Nations Children's Fund}},
-      year = {2026},
-      note = {Data set},
-      url = {https://glaas.who.int/},
+      url = {https://openwashdata.github.io/glaas},
+      abstract = {An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide.},
+      keywords = {open data,washdata,GLAAS,UN-Water,WHO,drinking-water,sanitation,hygiene,WASH,governance,monitoring,human resources,finance,global,glaas,r,rpackage,wash},
+      version = {0.3.0},
     }
