@@ -82,7 +82,7 @@
     {
       "@type": "PropertyValue",
       "name": "feature_id",
-      "description": "Numeric identifier of the record in the WHO source table (source column FID). It is not unique: the 259,313 rows hold 258,818 distinct values."
+      "description": "Numeric identifier of the record in the WHO source table (source column FID). Each of the 259,546 rows has its own value."
     },
     {
       "@type": "PropertyValue",
@@ -637,7 +637,7 @@
     {
       "@type": "PropertyValue",
       "name": "sys_version",
-      "description": "Version number of the record in the WHO xMart database: 1 or 2."
+      "description": "Version number of the record in the WHO xMart database: 1, 2 or 3."
     },
     {
       "@type": "PropertyValue",
@@ -657,7 +657,7 @@
     {
       "@type": "PropertyValue",
       "name": "sys_commit_date",
-      "description": "Date and time in UTC when the current version of the record was written to the WHO xMart database, between 25 and 27 January 2026."
+      "description": "Date and time in UTC when the current version of the record was written to the WHO xMart database, between 20 and 23 July 2026."
     },
     {
       "@type": "PropertyValue",
@@ -667,7 +667,7 @@
     {
       "@type": "PropertyValue",
       "name": "sys_first_commit_date",
-      "description": "Date and time in UTC when the record was first written to the WHO xMart database, 25 or 26 January 2026."
+      "description": "Date and time in UTC when the record was first written to the WHO xMart database, between 20 and 23 July 2026."
     },
     {
       "@type": "PropertyValue",

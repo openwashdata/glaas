@@ -5,9 +5,9 @@
 \alias{glaas}
 \title{WHO GLAAS Dataset}
 \format{
-A tibble with 259313 rows and 121 variables
+A tibble with 259546 rows and 121 variables
 \describe{
-\item{feature_id}{Numeric identifier of the record in the WHO source table (source column FID). It is not unique: the 259,313 rows hold 258,818 distinct values.}
+\item{feature_id}{Numeric identifier of the record in the WHO source table (source column FID). Each of the 259,546 rows has its own value.}
 \item{language}{Language of the text columns. Every row holds "EN" for English.}
 \item{parent_location_type}{Type of the region that the country is grouped under. Every row holds "WHO Region".}
 \item{parent_location_type_name}{Display name of the region type. Every row holds "WHO Region".}
@@ -118,13 +118,13 @@ A tibble with 259313 rows and 121 variables
 \item{record_id}{Unique identifier of the record in the WHO source table. It holds the same value as sys_id.}
 \item{sys_primary_key}{Unique whole number key of the row in the WHO xMart database.}
 \item{sys_row_title}{Row title field of the WHO xMart database. Every row holds "-".}
-\item{sys_version}{Version number of the record in the WHO xMart database: 1 or 2.}
+\item{sys_version}{Version number of the record in the WHO xMart database: 1, 2 or 3.}
 \item{sys_version_id}{Identifier of the record version: the record identifier in capital letters, a dot and the version number.}
 \item{sys_origin_code}{Code of the process that wrote the record to the WHO xMart database: "SYS_DATA_LOAD" or "PIPE_PUBLISH_CH".}
 \item{sys_loaded_by}{Field of the WHO xMart database for who loaded the record. Every row holds "-".}
-\item{sys_commit_date}{Date and time in UTC when the current version of the record was written to the WHO xMart database, between 25 and 27 January 2026.}
+\item{sys_commit_date}{Date and time in UTC when the current version of the record was written to the WHO xMart database, between 20 and 23 July 2026.}
 \item{sys_first_loaded_by}{Field of the WHO xMart database for who first loaded the record. Every row holds "-".}
-\item{sys_first_commit_date}{Date and time in UTC when the record was first written to the WHO xMart database, 25 or 26 January 2026.}
+\item{sys_first_commit_date}{Date and time in UTC when the record was first written to the WHO xMart database, between 20 and 23 July 2026.}
 \item{sys_id}{Unique identifier of the record in the WHO xMart database. It holds the same value as record_id.}
 \item{sys_batch_id}{Number of the load batch that wrote the current version of the record to the WHO xMart database.}
 \item{sys_first_batch_id}{Number of the load batch that first wrote the record to the WHO xMart database.}
