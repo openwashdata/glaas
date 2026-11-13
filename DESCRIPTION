@@ -13,7 +13,8 @@ Authors@R: c(
     )
 Description: An R data package providing comprehensive access to the UN-Water Global Analysis and Assessment of Sanitation and Drinking-water (GLAAS) dataset. The WHO GLAAS survey collects data on water, sanitation, and hygiene (WASH) systems, policies, and financing from countries worldwide.
 License: CC BY 4.0
-URL: https://openwashdata.github.io/glaas, https://github.com/openwashdata/glaas
+URL: https://openwashdata.github.io/glaas,
+    https://github.com/openwashdata/glaas
 BugReports: https://github.com/openwashdata/glaas/issues
 Date: 2026-02-05
 Encoding: UTF-8
@@ -32,3 +33,16 @@ Suggests:
     tidyr
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.0.0
+Language: en-GB
+Config/Needs/website: rmarkdown, brand.yml
+Config/washr/funding: This project was funded by the [Open Research Data Program of the ETH Board](https://ethrat.ch/en/eth-domain/open-research-data/).
+Config/washr/analytics-domain: openwashdata.github.io
+Config/washr/doi-provider: zenodo
+Config/washr/zenodo-community: openwashdata
+Config/washr/brand-source: openwashdata/brand
+Config/washr/publisher: Published by [openwashdata](https://openwashdata.org), a project of [Global Health Engineering](https://ghe.ethz.ch/) at ETH Zurich.
+Config/washr/home: https://openwashdata.org
+Config/washr/catalog: https://openwashdata.org/pages/gallery/data/
+Config/washr/community: This package is part of [openwashdata](https://openwashdata.org). Browse the [data catalogue](https://openwashdata.org/pages/gallery/data/) or get the [newsletter](https://openwashdata.org/pages/newsletter/).
+Config/washr/version: 1.2.2
+Config/washr/brand: v1.1.0

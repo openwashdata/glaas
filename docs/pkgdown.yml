@@ -1,9 +1,0 @@
-pandoc: 3.8.3
-pkgdown: 2.2.0
-pkgdown_sha: ~
-articles:
-  glaas: glaas.html
-last_built: 2026-03-27T10:38Z
-urls:
-  reference: https://openwashdata.github.io/glaas/reference
-  article: https://openwashdata.github.io/glaas/articles

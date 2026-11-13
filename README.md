@@ -1,5 +1,5 @@
 
-# glaas
+# glaas <a href="https://openwashdata.org"><img src="man/figures/logo.png" align="right" width="120" alt="openwashdata" /></a>
 
 [![License: CC BY
 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
@@ -194,6 +194,8 @@ When contributing, please:
 - Ensure the package builds without errors (`devtools::check()`)
 
 ## Citation
+
+Published by openwashdata, <https://openwashdata.org>.
 
 If you use this package in your research or publications, please cite it
 as follows:
